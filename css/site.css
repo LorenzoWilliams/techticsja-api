@@ -1,0 +1,35 @@
+@charset "utf-8";
+/*
+Template Name: Techticsja
+Author: TechticsJa.com/Lorenzo Williams
+Author URI: http://www.techticsja.com/
+File: Homepage CSS
+*/
+@import url("navbar.css");
+@import url("forms.css");
+@import url("tables.css");
+
+
+
+html{overflow-y:scroll;}
+
+.hero-image {
+    background-image: url("../uploads/earth.jpg");
+    background-color: #cccccc;
+    height: 500px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    filter: grayscale(10%);
+  }
+  
+  .hero-text {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    text-shadow: 2px 2px 2px black, 1 1 25px rgb(1, 156, 22), 1 1 5px rgb(255, 238, 0);
+  }

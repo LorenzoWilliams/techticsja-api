@@ -1,0 +1,75 @@
+@charset "utf-8";
+/*
+Template Name: Educational
+Author: TechticsJa.com
+Author URI: http://www.techticsja.com/
+File: Homepage CSS
+*/
+
+form, fieldset, legend{margin:20px 0 0 380px; padding:0; border:none;}
+legend{display:none;}
+input, textarea{font-size:12px; font-family:Georgia, "Times New Roman", Times, serif;}
+select{font-size:15px; font-family:Georgia, "Times New Roman", Times, serif;}
+
+
+/* ----------------------------------------------contact us Form------------------------------------- */
+/* Style inputs with type="text", select elements and textareas */
+select{
+  width: 30%; /* Full width */
+  padding: 13px; /* Some padding */  
+  border: 2px solid #ccc; /* Gray border */
+  border-radius: 4px; /* Rounded borders */
+  box-sizing: border-box; /* Make sure that padding and width stays in place */
+}
+
+.priceSubtitle .form-control {
+    display: inline-block;
+    width: auto;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  color: #555;
+  background-color: #fff;
+  background-image: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+  -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+  transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+/* Style inputs with type="text", textareas */
+input[type=text], textarea {
+    width: 50%; /* Full width */
+    padding: 12px; /* Some padding */  
+    border: 1px solid #ccc; /* Gray border */
+    border-radius: 4px; /* Rounded borders */
+    box-sizing: border-box; /* Make sure that padding and width stays in place */
+    margin-top: 6px; /* Add a top margin */
+    margin-bottom: 16px; /* Bottom margin */
+    resize: vertical /* Allow the user to vertically resize the textarea (not horizontally) */
+  }
+  
+  /* Style the submit button with a specific background color etc */
+  input[type=submit] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  /* When moving the mouse over the submit button, add a darker green color */
+  input[type=submit]:hover {
+    background-color: #45a049;
+  }
+  
