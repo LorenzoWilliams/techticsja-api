@@ -8,7 +8,7 @@ File: Homepage CSS
 
 form, fieldset, legend{margin:20px 0 0 380px; padding:0; border:none;}
 legend{display:none;}
-input, textarea{font-size:12px; font-family:Georgia, "Times New Roman", Times, serif;}
+input, textarea,select{font-size:12px; font-family:Georgia, "Times New Roman", Times, serif;}
 select{font-size:15px; font-family:Georgia, "Times New Roman", Times, serif;}
 
 
@@ -47,7 +47,7 @@ select{
 }
 
 /* Style inputs with type="text", textareas */
-input[type=text], textarea {
+input[type=text],input[type=password] , textarea, select {
     width: 50%; /* Full width */
     padding: 12px; /* Some padding */  
     border: 1px solid #ccc; /* Gray border */

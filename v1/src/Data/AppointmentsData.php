@@ -15,10 +15,9 @@ use PDOException;
 
         public function getAllAppointments()
         {
-          $sql = "SELECT a.AppointmentDate,a.AppointmentTime,ph.FirstName as 'Physician FirstName',ph.LastName as 'Physician LastName', pa.FirstName as 'Patient FirstName',pa.LastName as 'Patient LastName',a.Comments
+          $sql = "SELECT a.AppointmentDate,a.AppointmentTime,u.FirstName u.LastName,a.Comments
                     FROM Appointments a
-                    JOIN Users ph ON ph.id = a.Physician_id
-                    JOIN Users pa ON pa.id = a.Patient_id";  
+                    JOIN Users u ON u.id = a.User_id";  
     
             $stmt = $this->db->prepare($sql);
             if($stmt->execute()){
@@ -30,11 +29,10 @@ use PDOException;
         }
 
         public function getAppointmentsByID($id){
-        $sql = "SELECT a.AppointmentDate,a.AppointmentTime,ph.FirstName as 'Physician FirstName',ph.LastName as 'Physician LastName', pa.FirstName as 'Patient FirstName',pa.LastName as 'Patient LastName',a.Comments
-                  FROM Appointments a
-                  JOIN Users ph ON ph.id = a.Physician_id
-                  JOIN Users pa ON pa.id = a.Patient_id  
-                  WHERE v.id = ?";  
+        $sql = "SELECT a.AppointmentDate,a.AppointmentTime,u.FirstName u.LastName,a.Comments
+                FROM Appointments a
+                JOIN Users u ON u.id = a.User_id
+                  WHERE u.id = ?";  
 
         $stmt = $this->db->prepare($sql);
         if($stmt->execute([$id])){
@@ -49,17 +47,16 @@ use PDOException;
     {
         $appointmentDate = $appointmentaddData['AppointmentDate'];
         $appointmentTime = $appointmentaddData['AppointmentTime'];
-        $patient_id = $appointmentaddData['Patient_id'];
-        $physician_id = $appointmentaddData['Physician_id'];
+        $user_id = $appointmentaddData['User_id'];
         $comments = $appointmentaddData['Comments'];
 
         $sql = "INSERT INTO Appointments
-                    (AppointmentDate,AppointmentTime,Patient_id,Physician_id,Comments)
+                    (AppointmentDate,AppointmentTime,User_id,Comments)
                 VALUES
                 (?,?,?,?,?)";
         
         $stmt = $this->db->prepare($sql);
-        $result = $stmt->execute([$appointmentDate, $appointmentTime, $patient_id, $physician_id, $comments]);
+        $result = $stmt->execute([$appointmentDate, $appointmentTime, $user_id, $comments]);
         if($result){
             return true;
         }else{
@@ -70,9 +67,8 @@ use PDOException;
     public function updateAppointmentsByID($appointmentupdateData)
     {
         $appointmentDate = $appointmentupdateData['AppointmentDate'];
-        $appointmentTime = $appointmentaddData['AppointmentTime'];
-        $patient_id = $appointmentupdateData['Patient_id'];
-        $physician_id = $appointmentupdateData['Physician_id'];
+        $appointmentTime = $appointmentupdateData['AppointmentTime'];
+        $user_id = $appointmentupdateData['User_id'];
         $comments = $appointmentupdateData['Comments'];
         $id = $appointmentupdateData['id'];
 
@@ -80,8 +76,7 @@ use PDOException;
                 SET 
                     a.AppointmentDate = ?,
                     a.AppointmentTime = ?,
-                    a.Patient_id = ?,
-                    a.Physician_id = ?,
+                    a.User_id = ?,
                     a.Comments = ?
                 WHERE
                     a.id = ?";
@@ -89,7 +84,7 @@ use PDOException;
 
         $stmt = $this->db->prepare($sql);
         
-        $result = $stmt->execute([$appointmentDate, $appointmentTime, $patient_id, $physician_id, $comments,$id]);
+        $result = $stmt->execute([$appointmentDate, $appointmentTime, $user_id, $comments,$id]);
         if($result){
             // exit('success');
             return true;

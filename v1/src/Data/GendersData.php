@@ -18,7 +18,7 @@ class GendersData {
     {
 
         $sql = "SELECT 
-                    g.Gender
+                    g.id, g.Gender
                 FROM 
                     Genders g";
 
@@ -53,9 +53,9 @@ class GendersData {
     }
 
 
-    public function addGender($GenderaddData)
+    public function addGender($genderaddData)
     {
-        $gender = $GenderaddData['Gender'];
+        $gender = $genderaddData['Gender'];
  
    
 

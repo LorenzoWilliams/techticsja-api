@@ -18,7 +18,7 @@ class RolesData {
     {
 
         $sql = "SELECT 
-                    r.Role 
+                    r.id, r.Role 
                 FROM 
                     Roles r";
                     

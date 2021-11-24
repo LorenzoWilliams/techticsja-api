@@ -2,7 +2,7 @@
 
 <div class="container-md" > 
   <br>
-      <h5 style="text-align: center;">CONTACT US</h5>
+      <h5 style="text-align: center;"><?php echo $title ?></h5>
       <div>
       <form action="index.php" enctype="multipart/form-data">
 

@@ -1,14 +1,14 @@
 <?php
 
-use embermedicalservice\Database\Connection;
-use embermedicalservice\Data\UserData;
-use embermedicalservice\Data\AppointmentsData;
-use embermedicalservice\Data\BillsData;
-use embermedicalservice\Data\GendersData;
-use embermedicalservice\Data\PositionsData;
-use embermedicalservice\Data\VisitsData;
-use embermedicalservice\Data\RolesData;
-use embermedicalservice\Data\PaymentsData;
+use techticsja\Database\Connection;
+use techticsja\Data\UsersData;
+use techticsja\Data\RolesData;
+use techticsja\Data\AppointmentsData;
+use techticsja\Data\InvoicesData;
+use techticsja\Data\GendersData;
+use techticsja\Data\PositionsData;
+use techticsja\Data\VisitsData;
+use techticsja\Data\PaymentsData;
 use Slim\Container;
 
 include 'vendor/autoload.php';
@@ -19,10 +19,16 @@ $app = new \Slim\App($container);
 
 $container = $app->getContainer();
 
+$container['Roles'] = function ($container){
+    $conn = new Connection;
+    $rolesdata = new RolesData($conn);
+    return $rolesdata;
+};
+
 $container['Users'] = function ($container){
     $conn = new Connection;
-    $userdata = new UserData($conn);
-    return $userdata;
+    $usersdata = new UsersData($conn);
+    return $usersdata;
 };
 
 $container['Appointments'] = function ($container){
@@ -31,10 +37,10 @@ $container['Appointments'] = function ($container){
     return $appointmentsdata;
 };
 
-$container['Bills'] = function ($container){
+$container['Invoices'] = function ($container){
     $conn = new Connection;
-    $billsdata = new BillsData($conn);
-    return $billsdata;
+    $invoicesdata = new InvoicesData($conn);
+    return $invoicesdata;
 };
 
 $container['Visits'] = function ($container){
@@ -43,11 +49,6 @@ $container['Visits'] = function ($container){
     return $visitsdata;
 };
 
-$container['Roles'] = function ($container){
-    $conn = new Connection;
-    $rolesdata = new RolesData($conn);
-    return $rolesdata;
-};
 
 $container['Genders'] = function ($container){
     $conn = new Connection;
@@ -75,8 +76,20 @@ $app->get('/', function($request,$response, $argis){
 });
 
 
-//Function for Get ALL users data from the database
-$app->get('/users', function ($request, $response, $args) {
+//Function for Get ALL roles data from the database
+$app->get('/Roles', function ($request, $response, $args) {
+    $rolesdata = $this->Roles;
+    $roles = $rolesdata->getAllRoles();
+    if($roles){
+        $response = $response->withJson(
+            $roles
+        );
+        return $response;
+    }
+});
+
+//Function for Get ALL Users data from the database
+$app->get('/Users', function ($request, $response, $args) {
     $userdata = $this->Users;
     $users = $userdata->getAllUsers();
     if($users){
@@ -121,16 +134,6 @@ $app->get('/genders', function ($request, $response, $args) {
     }
 });
 
-$app->get('/roles', function ($request, $response, $args) {
-    $roledata = $this->Roles;  
-    $roles = $roledata->getAllRoles();
-    if($roles){
-        $response = $response->withJson(
-            $roles
-        );
-        return $response;
-    }
-});
 
 $app->get('/positions', function ($request, $response, $args) {
     $positiondata = $this->Positions;  
@@ -167,21 +170,20 @@ $app->get('/visits', function ($request, $response, $args) {
 
 
 
-//Function for Get all users data by there roles
-$app->get('/user-role/{id}',function($request, $response, $args){
-    $userdata = $this->Users;
+//Function for Get roles data by id
+$app->get('/role/{id}',function($request, $response, $args){
+    $roledata = $this->roles;
 
     $roleID = $args['id'];
 
-    $userrole = $userdata->getAllUserByRoleID($roleID);
+    $role = $roledata->getRoleByID($roleID);
 
-    if($userrole){
+    if($role){
         return $response->withJson(
-            $userrole
+            $role
         );
     }
 });
-
 
 //Function for Get users data by id
 $app->get('/user/{id}',function($request, $response, $args){
@@ -222,20 +224,6 @@ $app->get('/appointment/{id}',function($request, $response, $args){
     if($appointment){
         return $response->withJson(
             $appointment
-        );
-    }
-});
-
-$app->get('/role/{id}',function($request, $response, $args){
-    $roledata = $this->Roles;
-
-    $roleID = $args['id'];
-
-    $role = $roledata->getRoleByID($roleID);
-
-    if($role){
-        return $response->withJson(
-            $role
         );
     }
 });
@@ -298,11 +286,11 @@ $app->get('/payment/{id}',function($request, $response, $args){
 
 
 
-//Functions for adding data
-$app->post('/login', function($request, $response, $args){ 
-    $userdata = $this->Users;
+//Functions for role login
+$app->post('/Rolelogin', function($request, $response, $args){ 
+    $roledata = $this->Roles;
     $params = $request->getParams();
-    $login = $userdata->getloginUserRole($params);
+    $login = $roledata->getloginRole($params);
 
        if($login){
            print_r($login); exit;
@@ -320,9 +308,55 @@ $app->post('/login', function($request, $response, $args){
     
 });
 
+//Functions for user login
+$app->post('/Userlogin', function($request, $response, $args){ 
+    $userdata = $this->Users;
+    $params = $request->getParams();
+    $login = $userdata->getloginUser($params);
+
+       if($login){
+           print_r($login); exit;
+        $message= array("message"=>"Successfully Validated");
+        $response= $response->withJson(
+            array($login,$message)
+        );
+        return $response;
+    }else{
+        $message= array("message"=>"Not Validated");
+        $response= $response->withJson(
+            $message);
+        return $response;
+    }
+    
+});
+
+//Functions for adding data
+$app->post('/role', function ($request, $response, $args) {
+    $roledata = $this->Roles;
+
+    $params = $request->getParams(); 
+    
+    $roleadd = $roledata->addNewRole($params);
+    
+    if($roleadd){
+        return $response->withJson(
+            [
+            "error" => false,   
+            "message" =>$params['FirstName'] . ' ' . $params['LastName'] . ' ' . "was successfully added"
+            ]
+        );
+    }else {
+        return $response->withJson(
+            [
+                "error"=> true,
+                "message" => "Role was not added"
+            ]
+        );
+    }
+});
 
 $app->post('/user', function ($request, $response, $args) {
-    $userdata = $this->Users;
+    $userdata = $this->users;
 
     $params = $request->getParams(); 
     
@@ -344,7 +378,6 @@ $app->post('/user', function ($request, $response, $args) {
         );
     }
 });
-
 
 $app->post('/bill', function ($request, $response, $args) {
     $billdata = $this->Bills;
@@ -389,30 +422,6 @@ $app->post('/appointment', function ($request, $response, $args) {
             [
                 "error"=> true,
                 "message" => "Appointment was not added"
-            ]
-        );
-    }
-});
-
-$app->post('/role', function ($request, $response, $args) {
-    $roledata = $this->Roles;
-
-    $params = $request->getParams();
-    
-    $roleadd = $roledata->addNewRole($params);
-    
-    if($roleadd){
-        return $response->withJson(
-            [
-            "error" => false,   
-            "message" => "Role was successfully added"
-            ]
-        );
-    }else {
-        return $response->withJson(
-            [
-                "error"=> true,
-                "message" => "Role was not added"
             ]
         );
     }
@@ -515,11 +524,35 @@ $app->post('/payment', function ($request, $response, $args) {
 });
 
 
+//Functions for updating role data
+$app->put('/user', function ($request, $response, $args) {
+    $roledata = $this->Roles;
+
+    $params = $request->getParams(); //print_r($params); exit;
+    $roleupdate = $roledata->updateRoleByID($params);
+    
+    if($roleupdate){
+        return $response->withJson(
+            [
+            "error" => false,   
+            "message" =>$params['FirstName'] . ' ' . $params['LastName'] . ' ' . "was successfully updated"
+            ]
+        );
+    }else {
+        return $response->withJson(
+            [
+                "error"=> true,
+                "message" => "Role was not updated"
+            ]
+        );
+    }
+});
+
 //Functions for updating user data
 $app->put('/user', function ($request, $response, $args) {
     $userdata = $this->Users;
 
-    $params = $request->getParams(); //print_r($params); exit;
+    $params = $request->getParams(); 
     $userupdate = $userdata->updateUserByID($params);
     
     if($userupdate){
@@ -580,29 +613,6 @@ $app->put('/appointment', function ($request, $response, $args) {
             [
                 "error"=> true,
                 "message" => "Appointment was not updated"
-            ]
-        );
-    }
-});
-
-$app->put('/role', function ($request, $response, $args) {
-    $roledata = $this->Roles;
-
-    $params = $request->getParams(); 
-    $roleupdate = $roledata->updateRoleByID($params);
-    
-    if($roleupdate){
-        return $response->withJson(
-            [
-            "error" => false,   
-            "message" => "Role was successfully updated"
-            ]
-        );
-    }else {
-        return $response->withJson(
-            [
-                "error"=> true,
-                "message" => "Role was not updated"
             ]
         );
     }
@@ -704,6 +714,31 @@ $app->put('/payment', function ($request, $response, $args) {
 
 
 //Function for Get users data by id
+$app->delete('/role/{id}',function($request, $response, $args){
+    $roledata = $this->Roles;
+
+    $roleID = $args['id'];
+
+    $roledelete = $roledata->deleteRoleByID($roleID);
+
+    if($roledelete){
+        return $response->withJson(
+            [
+                "error"=> true,
+                "message" => "Role was not deleted"
+            ]
+        );
+    }else {
+        return $response->withJson(
+            [
+            "error" => false,   
+            "message" => "Role was successfully deleted"
+            ]
+        );
+    }
+});
+
+//Function for Get users data by id
 $app->delete('/user/{id}',function($request, $response, $args){
     $userdata = $this->Users;
 
@@ -727,7 +762,6 @@ $app->delete('/user/{id}',function($request, $response, $args){
         );
     }
 });
-
 
 $app->delete('/bill/{id}',function($request, $response, $args){
     $billdata = $this->Bills;
@@ -777,32 +811,6 @@ $app->delete('/appointment/{id}',function($request, $response, $args){
         );
     }
 });
-
-
-$app->delete('/role/{id}',function($request, $response, $args){
-    $roledata = $this->Roles;
-
-    $roleID = $args['id'];
-
-    $roledelete = $roledata->deleteRoleByID($roleID);
-
-    if($roledelete){
-        return $response->withJson(
-            [
-                "error"=> true,
-                "message" => "Role was not deleted"
-            ]
-        );
-    }else {
-        return $response->withJson(
-            [
-            "error" => false,   
-            "message" => "Role was successfully deleted"
-            ]
-        );
-    }
-});
-
 
 $app->delete('/gender/{id}',function($request, $response, $args){
     $genderdata = $this->Genders;

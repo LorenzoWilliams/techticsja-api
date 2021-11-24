@@ -17,11 +17,9 @@ class PositionsData {
     {
 
         $sql = "SELECT 
-                    p.Position, u.FirstName, u.LastName 
+                    p.Position
                 FROM 
-                    Positions p 
-                JOIN 
-                    Users u on u.id = p.User_id";
+                    Positions p";
 
         $stmt = $this->db->prepare($sql);
         if($stmt->execute()){
@@ -38,11 +36,9 @@ class PositionsData {
     public function getPositionByID($id)
     {
         $sql = "SELECT 
-                    p.Position, u.FirstName, u.LastName 
+                    p.Position
                 FROM 
-                    Positions p 
-                JOIN 
-                    Users u on u.id = p.User_id
+                    Positions p
                 WHERE
                     p.id = ?";  
 
@@ -59,16 +55,14 @@ class PositionsData {
     public function addPosition($positionaddData)
     {
         $position = $positionaddData['Position'];
-        $user = $positionaddData['User_id'];
-   
 
         $sql = "INSERT INTO Positions
-                    (Position,User_id)
+                    (Position)
                 VALUES
-                    (?,?)";
+                    (?)";
         
         $stmt = $this->db->prepare($sql);
-        $result = $stmt->execute([$position, $user]);
+        $result = $stmt->execute([$position]);
         if($result){
             return true;
         }else{
@@ -79,20 +73,18 @@ class PositionsData {
     public function updatePositionByID($positionupdateData)
     {
         $position = $positionupdateData['Position'];
-        $user = $positionupdateData['User_id'];
         $id = $positionupdateData['id']; 
 
         $sql = "UPDATE Positions p
                 SET 
                     p.Position = ?,
-                    p.User_id = ?,
                 WHERE
                     p.id = ?";
         
 
         $stmt = $this->db->prepare($sql);
         
-        $result = $stmt->execute([$position, $user,$id]);
+        $result = $stmt->execute([$position,$id]);
         if($result){
             return true;
         }else{

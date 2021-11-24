@@ -9,7 +9,7 @@
   <div class="hero-text">
     <h1 style="font-size:50px">TechticsJa</h1>
     <h3>Your smart choice</h3>
-    <button>Join Us</button>
+    <input type="submit" value="Join Us"><br><br>
   </div>
 
 
