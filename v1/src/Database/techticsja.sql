@@ -20,11 +20,11 @@ create table Pay_Status(
 
 create table Users(
 	id int primary key auto_increment,
-	Role_id int, 
+	Role_id int NOT NULL, 
 	foreign key (Role_id) REFERENCES Roles(id) on delete cascade,
 	FirstName nvarchar(30) NOT NULL,
 	LastName nvarchar(50) NOT NULL,
-	Gender_id int, 
+	Gender_id int NOT NULL, 
 	foreign key (Gender_id) REFERENCES Genders(id) on delete cascade,
 	DOB date NOT NULL,
     Email nvarchar(50) NOT NULL,
@@ -78,6 +78,9 @@ create table Payments(
     foreign key (Pay_Status_id) REFERENCES Pay_Status(id) on delete cascade
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
+INSERT INTO ROles(Role)
+VALUES ('Client'),('Aministrator'),('Software Developer'),('Web Administrator'),
+		('Database Administrator'),('Graphics Designer'),('Draughtsman');
 
 INSERT INTO Genders(Gender)
 VALUES ('Male'),('Female');
@@ -85,9 +88,9 @@ VALUES ('Male'),('Female');
 INSERT INTO Pay_Status(Pay_Status)
 VALUES ('Paid'),('Not Paid');
          
-INSERT INTO Users(FirstName,LastName,Gender_id,DOB,Email,Phone,Address,Password,Avatar_path)
-VALUES ('Lorencio','Williams','1','2000-05-29','cio_williams@gmail.com','8763716518','Red Hills Road St. Andrew','12345',''),
-('Lorenzo','Williams','1','1991-02-12','williamslorenzo473@gmail.com','8764731083','Portmore, St. Catherine','12345','');
+INSERT INTO Users(Role_id,FirstName,LastName,Gender_id,DOB,Email,Phone,Address,Password,Avatar_path)
+VALUES ('1','Lorencio','Williams','1','2000-05-29','cio_williams@gmail.com','8763716518','Red Hills Road St. Andrew','12345',''),
+('2','Lorenzo','Williams','1','1991-02-12','williamslorenzo473@gmail.com','8764731083','Portmore, St. Catherine','12345','');
 
 INSERT INTO Appointments(AppointmentDate,AppointmentTime,User_id,Comments ) 
 VALUES ('2019-11-10','07:30','1',''); 

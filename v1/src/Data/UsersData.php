@@ -17,9 +17,9 @@ class UsersData {
     public function getAllUsers()
     { 
         $sql = "SELECT 
-                    r.Roles, u.FirstName, u.LastName, u.DOB, g.Gender, u.DOB, u.Email, u.Phone, u.Address, u.Password, u.avatar_path
+                    u.id,r.Roles, u.FirstName, u.LastName, u.DOB, g.Gender, u.DOB, u.Email, u.Phone, u.Address, u.Password, u.avatar_path
                 FROM 
-                    User u 
+                    Users u 
                 JOIN 
                     Genders g on g.id = u.Gender_id
                 JOIN 
@@ -39,7 +39,7 @@ class UsersData {
         $sql = "SELECT 
                     r.Roles, u.FirstName, u.LastName, u.DOB, g.Gender, u.DOB, u.Email, u.Phone, u.Address, u.Password, u.avatar_path
                 FROM 
-                    User u 
+                    Users u 
                 JOIN 
                     Genders g on g.id = u.Gender_id
                 JOIN 
@@ -68,16 +68,15 @@ class UsersData {
         $phone =$UseraddData['Phone'];
         $address = $UseraddData['Address'];
         $password = md5($UseraddData['Password']);
-        $avatar = $UseraddData['Avatar_path'];
-
-
+        $avatar_path = $UseraddData['Avatar_path'];
+        
         $sql = "INSERT INTO 
                     Users(Role_id,FirstName,LastName,Gender_id,DOB,Email,Phone,Address,Password,Avatar_Path)
                 VALUES
                     (?,?,?,?,?,?,?,?,?,?)";
             
         $stmt = $this->db->prepare($sql);
-        $result = $stmt->execute([$role, $firstname, $lastname, $gender, $DOB, $email, $phone, $address, $password, $avatar]);
+        $result = $stmt->execute([$role, $firstname, $lastname, $gender, $DOB, $email, $phone, $address, $password, $avatar_path]);
         if($result){
             return true;
         }else{
@@ -117,7 +116,7 @@ class UsersData {
 
         $stmt = $this->db->prepare($sql);
         
-        $result = $stmt->execute([$firstname, $lastname, $gender, $DOB, $email, $phone, $address, $password,$avatar, $id]);
+        $result = $stmt->execute([$role,$firstname, $lastname, $gender, $DOB, $email, $phone, $address, $password,$avatar, $id]);
         if($result){
             // exit('success');
             return true;
@@ -143,24 +142,30 @@ class UsersData {
             }
     }
 
-    public function getloginUser($email,$password)
+    public function getloginUserRole($loginData)
     {
+
+        $email = $loginData['Email'];
+        $password = md5($loginData['Password']);
+
+        
+
         $sql = "SELECT 
-                    *
+                    u.id,u.Role_id, u.FirstName, u.LastName, u.DOB, u.Gender_id, u.DOB, u.Email, u.Phone, u.Address, u.Password, u.avatar_path
                 FROM 
                     Users u 
                 WHERE
                     u.Email = ? AND
-                    u.Password=?";  
+                    u.Password=? ";  
 
         $stmt = $this->db->prepare($sql);
-        if($stmt->execute([$email,$password])){
-            $userlogin = $stmt->fetch(PDO::FETCH_ASSOC);
-                return $userlogin;
+        if($stmt->execute([$email, $password])){
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+                return $result;
         }else{
                 return null;
             }
     }
     
+    
 }
-

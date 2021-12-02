@@ -1,7 +1,6 @@
 <?php
   include_once 'includes/sessions.php';
 ?>
-
 <!doctype html>
 <html lang="en">
   <head>
@@ -30,7 +29,6 @@
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
-    
     <title>TechticsJa - <?php echo $title;?></title>
   </head>
   <body>

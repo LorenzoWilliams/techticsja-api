@@ -1,35 +1,48 @@
 <?php
+  
     use techticsja\Database\Connection;
     use techticsja\Data\UsersData;
 
-
     $title = 'Login'; 
 
-    require_once 'includes/header.php'; 
+    
     require_once 'v1/src/Database/Connection.php';
     require_once 'v1/src/Data/UsersData.php'; 
+    require_once 'includes/header.php'; 
 
     $conn = new Connection;
     $userdata = new UsersData($conn);
  
-    $users = $usersdata->getloginUser($loginData);
-
-    
+   
     //If data was submitted via a form POST request, then...
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $email = strtolower(trim($_POST['Email']));
-        $password = $_POST['Password'];
-        $new_password = md5($password.$email);
+        $password = md5($_POST['Password']);
 
-        $result = $staff->getloginStaff($email,$new_password);
+        $result = $userdata->getloginUserRole(array(
+          "Email" => $email, 
+          "Password" => $password)
+        );
         if(!$result){
-            echo '<div class="alert alert-danger">Username or Password is incorrect! Please try again. </div>';
+            echo '<div class="alert alert-danger">Email or Password is incorrect! Please try again. </div>';
         }else{
-            $_SESSION['Email'] = $$email;
-            $_SESSION['id'] = $result['id'];
-            header("Location: viewrecords.php");
+            $_SESSION['Email'] = $email;
+            $_SESSION['Role_Id'] = $result['Role_id'];
+            $_SESSION['FirstName'] = $result['FirstName'];
+            if($_SESSION['Role_id']== "1"){
+              header("Location: client-dashboard.php");
+            }else{
+              header("Location: admin-dashboard.php");
+            }
         }
 
+
+        /* if($_SESSION['Role']== "Client"){
+                      header("Location: client-dashboard.php");
+        }else{
+                      header("Location: admin-dashboard.php");
+        }
+         */
     }
 ?>
 
@@ -42,14 +55,15 @@
     <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post"   text-align="center">
         <img src="uploads/clients.png" alt="Avatar" class="avatar"><br>
 
-        <label for="username"><b>Username</b></label><br>
-        <input type="text" id="username" name="username" placeholder="Username" required><br>
+        <label for="Email"><b>Email</b></label><br>
+        <input type="text" id="Email" name="Email" placeholder="Email" required><br>
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small><br><br>
 
-        <label for="psw"><b>Password</b></label><br>
-        <input type="password" placeholder="Password" name="psw" required><br>
+        <label for="Password"><b>Password</b></label><br>
+        <input type="Password" placeholder="Password" name="Password" required><br>
 
         <input type="submit" value="Submit"><br><br>
-        <span class="psw">Forgot <a href="#">password?</a></span>
+        <span class="psw">Forgot <a href="forget-password.php">password?</a></span>
 
       </form>
     </div>

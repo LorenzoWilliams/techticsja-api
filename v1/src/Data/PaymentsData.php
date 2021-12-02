@@ -17,7 +17,7 @@ class PaymentsData {
     public function getAllPayments()
     {
         $sql = "SELECT 
-                    p.bill_id,p.Pay_Status
+                    p.id,p.bill_id,p.Pay_Status
                 FROM 
                     Payments p 
                 JOIN 

@@ -53,7 +53,7 @@ use PDOException;
         $sql = "INSERT INTO Appointments
                     (AppointmentDate,AppointmentTime,User_id,Comments)
                 VALUES
-                (?,?,?,?,?)";
+                (?,?,?,?)";
         
         $stmt = $this->db->prepare($sql);
         $result = $stmt->execute([$appointmentDate, $appointmentTime, $user_id, $comments]);

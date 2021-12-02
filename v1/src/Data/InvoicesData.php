@@ -16,7 +16,7 @@ class InvoicesData{
     public function getAllInvoices()
     {
         $sql = "SELECT
-                   i.InvoiceDate, i.Currency, b.Total,  u.FirstName, u.LastName
+                   i.id, i.InvoiceDate, i.Currency, b.Total,  u.FirstName, u.LastName
                 FROM 
                     Invoices i
                 JOIN 

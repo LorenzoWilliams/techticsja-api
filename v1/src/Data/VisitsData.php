@@ -16,12 +16,12 @@ class VisitsData {
     public function getAllVisit()
     {
 
-        $sql = "SELECT v.VisitDate, v.VisitTime, r.FirstName as 'Rececptionist FirstName',r.LastName as 'Rececptionist LastName', n.FirstName as 'Nurse FirstName',n.LastName as 'Nurse LastName',ph.FirstName as 'Physician FirstName',ph.LastName as 'Physician LastName', pa.FirstName as 'Patient FirstName',pa.LastName as 'Patient LastName',v.Weight_lb,v.Height_cm, v.Blood_Pressure,v.Blood_Sugar,v.Symptoms, v.Diagnosis, v.Prescription, v.Comments
-		FROM Visits v
-        JOIN Users r ON r.id = v.Receptionist_id
-        JOIN Users n ON n.id = v.Nurse_id
-		JOIN Users ph ON ph.id = v.Physician_id
-		JOIN Users pa ON pa.id = v.Patient_id";
+        $sql = "SELECT 
+                    v.id,v.VisitDate, v.VisitTime, u.FirstName u.LastName, v.Comments
+                FROM 
+                    Visits v
+                JOIN 
+                    Users u ON u.id = v.User_id";
 
         $stmt = $this->db->prepare($sql);
         if($stmt->execute()){
@@ -35,13 +35,14 @@ class VisitsData {
 
     public function getVisitByID($id)
     {
-        $sql = "SELECT v.VisitDate, v.VisitTime, r.FirstName as 'Rececptionist FirstName',r.LastName as 'Rececptionist LastName', n.FirstName as 'Nurse FirstName',n.LastName as 'Nurse LastName',ph.FirstName as 'Physician FirstName',ph.LastName as 'Physician LastName', pa.FirstName as 'Patient FirstName',pa.LastName as 'Patient LastName',v.Weight_lb,v.Height_cm, v.Blood_Pressure,v.Blood_Sugar,v.Symptoms, v.Diagnosis, v.Prescription, v.Comments
-		FROM Visits v
-        JOIN Users r ON r.id = v.Receptionist_id
-        JOIN Users n ON n.id = v.Nurse_id
-		JOIN Users ph ON ph.id = v.Physician_id
-		JOIN Users pa ON pa.id = v.Patient_id
-        WHERE v.id = ?";  
+        $sql = "SELECT 
+                    v.id,v.VisitDate, v.VisitTime, u.FirstName u.LastName, v.Comments
+                FROM 
+                    Visits v
+                JOIN 
+                    Users u ON u.id = v.User_id
+                WHERE 
+                    v.id = ?";  
 
         $stmt = $this->db->prepare($sql);
         if($stmt->execute([$id])){
@@ -57,26 +58,16 @@ class VisitsData {
     {
         $visitDate = $visitaddData['VisitDate'];
         $visitTime = $visitaddData['VisitTime'];
-        $receptionist_id = $visitaddData['Receptionist_id'];
-        $nurse_id = $visitaddData['Nurse_id'];
-        $patient_id = $visitaddData['Patient_id'];
-        $physician_id = $visitaddData['Physician_id'];
-        $weight_lb = $visitaddData['Weight_lb'];
-        $height_cm = $visitaddData['Height_cm'];
-        $blood_Pressure =$visitaddData['Blood_Pressure'];
-        $blood_Sugar = $visitaddData['Blood_Sugar'];
-        $symptoms =$visitaddData['Symptoms'];
-        $diagnosis = $visitaddData['Diagnosis'];
-        $prescription =$visitaddData['Prescription'];
+        $user_id = $visitaddData['User_id'];
         $comments = $visitaddData['Comments'];
 
         $sql = "INSERT INTO Visits
-                    (VisitDate,VisitTime,Receptionist_id,Nurse_id,Patient_id,Physician_id,Weight_lb,Height_cm,Blood_Pressure,Blood_Sugar,Symptoms,Diagnosis,Prescription,Comments)
+                    (VisitDate,VisitTime,User_id,Comments)
                 VALUES
-                (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                (?,?,?,?)";
         
         $stmt = $this->db->prepare($sql);
-        $result = $stmt->execute([$visitDate, $visitTime, $receptionist_id, $nurse_id, $patient_id, $physician_id, $weight_lb, $height_cm, $blood_Pressure, $blood_Sugar, $symptoms, $diagnosis, $prescription, $comments]);
+        $result = $stmt->execute([$visitDate, $visitTime, $user_id, $comments]);
         if($result){
             return true;
         }else{
@@ -88,17 +79,7 @@ class VisitsData {
     {
         $visitDate = $visitupdateData['VisitDate'];
         $visitTime = $visitupdateData['VisitTime'];
-        $receptionist_id = $visitupdateData['Receptionist_id'];
-        $nurse_id = $visitupdateData['Nurse_id'];
-        $patient_id = $visitupdateData['Patient_id'];
-        $physician_id = $visitupdateData['Physician_id'];
-        $weight_lb = $visitupdateData['Weight_lb'];
-        $height_cm = $visitupdateData['Height_cm'];
-        $blood_Pressure =$visitupdateData['Blood_Pressure'];
-        $blood_Sugar = $visitupdateData['Blood_Sugar'];
-        $symptoms =$visitupdateData['Symptoms'];
-        $diagnosis = $visitupdateData['Diagnosis'];
-        $prescription =$visitupdateData['Prescription'];
+        $user_id = $visitupdateData['User_id'];
         $comments = $visitupdateData['Comments'];
         $id = $visitupdateData['id'];
 
@@ -106,17 +87,7 @@ class VisitsData {
                 SET 
                     v.VisitDate = ?,
                     v.VisitTime = ?,
-                    v.Receptionist_id = ?,
-                    v.Nurse_id = ?,
-                    v.Patient_id = ?,
-                    v.Physician_id = ?,
-                    v.Weight_lb = ?,
-                    v.Height_cm = ?,
-                    v.Blood_Pressure = ?,
-                    v.Blood_Sugar = ?
-                    v.Symptoms = ?,
-                    v.Diagnosis = ?
-                    v.Prescription = ?,
+                    v.User_id = ?,
                     v.Comments = ?
                 WHERE
                     v.id = ?";
@@ -124,7 +95,7 @@ class VisitsData {
 
         $stmt = $this->db->prepare($sql);
         
-        $result = $stmt->execute([$visitDate, $visitTime, $receptionist_id, $nurse_id, $patient_id, $physician_id, $weight_lb, $height_cm, $blood_Pressure, $blood_Sugar, $symptoms, $diagnosis, $prescription, $comments,$id]);
+        $result = $stmt->execute([$visitDate, $visitTime, $user_id, $comments,$id]);
         if($result){
             // exit('success');
             return true;

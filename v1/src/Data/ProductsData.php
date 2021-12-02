@@ -5,7 +5,7 @@ use PDO;
 use techticsja\Database\Connection;
 use PDOException;
 
-class PositionsData {
+class ProductsData {
     private $db;
 
     function __construct(Connection $conn)
@@ -13,56 +13,55 @@ class PositionsData {
         $this->db =  $conn->connect();
     }
 
-    public function getAllPositions()
+    public function getAllProducts()
     {
 
         $sql = "SELECT 
-                    p.Position
+                    p.id,p.Product
                 FROM 
-                    Positions p";
+                    Products p";
 
         $stmt = $this->db->prepare($sql);
         if($stmt->execute()){
-            $positions = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $positions;
+            $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $products;
         } else {
             return null;
         }
     }
 
 
-   
 
-    public function getPositionByID($id)
+    public function getProductByID($id)
     {
         $sql = "SELECT 
-                    p.Position
+                    p.Product
                 FROM 
-                    Positions p
+                    Products p
                 WHERE
                     p.id = ?";  
 
         $stmt = $this->db->prepare($sql);
         if($stmt->execute([$id])){
-            $position = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $position;
+            $product = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $product;
         }else{
                 return null;
             }
     }
 
 
-    public function addPosition($positionaddData)
+    public function addProduct($productaddData)
     {
-        $position = $positionaddData['Position'];
+        $product = $productaddData['Product'];
 
-        $sql = "INSERT INTO Positions
-                    (Position)
+        $sql = "INSERT INTO Products
+                    (Product)
                 VALUES
                     (?)";
         
         $stmt = $this->db->prepare($sql);
-        $result = $stmt->execute([$position]);
+        $result = $stmt->execute([$product]);
         if($result){
             return true;
         }else{
@@ -70,21 +69,21 @@ class PositionsData {
         }
     }
 
-    public function updatePositionByID($positionupdateData)
+    public function updateProductByID($productupdateData)
     {
-        $position = $positionupdateData['Position'];
-        $id = $positionupdateData['id']; 
+        $product = $productupdateData['Product'];
+        $id = $productupdateData['id']; 
 
-        $sql = "UPDATE Positions p
+        $sql = "UPDATE Products p
                 SET 
-                    p.Position = ?,
+                    p.Product = ?,
                 WHERE
                     p.id = ?";
         
 
         $stmt = $this->db->prepare($sql);
         
-        $result = $stmt->execute([$position,$id]);
+        $result = $stmt->execute([$product,$id]);
         if($result){
             return true;
         }else{
@@ -93,17 +92,17 @@ class PositionsData {
     }
 
 
-    public function deletePositionByID($id)
+    public function deleteProductByID($id)
     {
         $sql = "DELETE FROM 
-                    Positions 
+                    Products 
                 WHERE 
                     id=?";  
 
         $stmt = $this->db->prepare($sql);
         if($stmt->execute([$id])){
-            $position = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $position;
+            $product = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $product;
         }else{
                 return null;
             }

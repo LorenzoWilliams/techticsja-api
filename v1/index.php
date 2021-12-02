@@ -6,7 +6,7 @@ use techticsja\Data\RolesData;
 use techticsja\Data\AppointmentsData;
 use techticsja\Data\InvoicesData;
 use techticsja\Data\GendersData;
-use techticsja\Data\PositionsData;
+use techticsja\Data\ProductsData;
 use techticsja\Data\VisitsData;
 use techticsja\Data\PaymentsData;
 use Slim\Container;
@@ -56,9 +56,9 @@ $container['Genders'] = function ($container){
     return $gendersdata;
 };
 
-$container['Positions'] = function ($container){
+$container['Products'] = function ($container){
     $conn = new Connection;
-    $positionsdata = new PositionsData($conn);
+    $positionsdata = new ProductsData($conn);
     return $positionsdata;
 };
 

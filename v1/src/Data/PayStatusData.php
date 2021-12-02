@@ -18,7 +18,7 @@ class Pay_StatusData {
     {
 
         $sql = "SELECT 
-                    p.Pay_Status
+                    p.id,p.Pay_Status
                 FROM 
                     Pay_Status p";
 
