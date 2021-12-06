@@ -11,6 +11,16 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="css/site.css">
     <link rel="stylesheet" href="css/Login.css">
+    <style>
+      .navbar-dark .navbar-nav .nav-link.active, .navbar-dark .navbar-nav .show>.nav-link {
+      color: #ffe000; 
+      }
+        
+      .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+      background-color: #1E7008;
+      }
+    </style>
+
     <!-- site icon -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
@@ -32,16 +42,17 @@
     <title>TechticsJa - <?php echo $title;?></title>
   </head>
   <body>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
+    
+      <nav  class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark ">
         <div class="container-fluid" >
           <a class="navbar-brand" href="index.php"><img src="uploads/techticsja.png" alt="techticsja" height="50px"; width="50px">TechticsJa</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 20px" id="navbar">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="index.php">Home</a>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 20px " id="navbar">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills " id="pills-tab" role="tablist" >
+              <li class="nav-item" >
+                <a class="nav-link  active" role="tab" aria-current="page" href="index.php">Home</a>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle"  id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -55,7 +66,7 @@
                 </ul>
               </li>
               <li class="nav-item">
-              <li><a class="nav-link" href="pricing.php">Pricing</a></li>
+              <li><a class="nav-link" role="tab" href="pricing.php">Pricing</a></li>
               </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -73,7 +84,7 @@
               <a class="nav-link" href="contact-us.php">Contact</a>
               </li>
             </ul>
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin-left: 220px">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 nav-pills" style="margin-left: 220px">
             <li class="nav-item">
               <a class="nav-link" href="signup.php" style="width:auto;">Sign Up</a>
               </li>
@@ -84,7 +95,6 @@
           </div>
         </div>
       </nav>
-
 
 
       

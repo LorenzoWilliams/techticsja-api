@@ -60,7 +60,7 @@ input[type=text],input[type=password] , textarea, select {
   
   /* Style the submit button with a specific background color etc */
   input[type=submit] {
-    background-color: #4CAF50;
+    background-color: #1E7008;
     color: white;
     padding: 12px 20px;
     border: none;
@@ -70,7 +70,7 @@ input[type=text],input[type=password] , textarea, select {
   
   /* When moving the mouse over the submit button, add a darker green color */
   input[type=submit]:hover {
-    background-color: #45a049;
+    background-color: #1E7008;
   }
   
 /* Style inputs with type="text", textareas */

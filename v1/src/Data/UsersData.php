@@ -167,5 +167,21 @@ class UsersData {
             }
     }
     
-    
+    public function getUserID($id)
+    {
+        $sql = "SELECT 
+                    u.id, u.Role_id, u.FirstName, u.LastName, u.DOB, u.Gender_id, u.DOB, u.Email, u.Phone, u.Address, u.Password, u.avatar_path
+                FROM 
+                    Users u 
+                WHERE
+                    u.id = ?";  
+
+        $stmt = $this->db->prepare($sql);
+        if($stmt->execute([$id])){
+            $user = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $user;
+        }else{
+                return null;
+            }
+    }
 }

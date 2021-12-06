@@ -27,12 +27,14 @@
             echo '<div class="alert alert-danger">Email or Password is incorrect! Please try again. </div>';
         }else{
             $_SESSION['Email'] = $email;
-            $_SESSION['Role_Id'] = $result['Role_id'];
+            $_SESSION['Role_id'] = $result['Role_id'];
             $_SESSION['FirstName'] = $result['FirstName'];
+            $_SESSION['id'] = $result['id'];
             if($_SESSION['Role_id']== "1"){
-              header("Location: client-dashboard.php");
+              header("Location: client-dashboard.php"."?id=".$result['id']);
+              
             }else{
-              header("Location: admin-dashboard.php");
+              header("Location: admin-dashboard.php"."?id=".$result['id']);
             }
         }
 

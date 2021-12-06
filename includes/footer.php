@@ -23,6 +23,7 @@
 <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 <script src="scripts/date.js"></script>
 <script type="text/javascript" src="scripts/pricingJquery.js"></script>
+<script type="text/javascript" src="scripts/active.js"></script>
 
 </body>
 </html>

@@ -1,3 +1,23 @@
+<?php 
+    use techticsja\Database\Connection;
+    use techticsja\Data\UsersData;
+
+    $title = 'Client Dashboard'; 
+    
+    require_once 'v1/src/Database/Connection.php';
+    require_once 'v1/src/Data/UsersData.php'; 
+
+    $conn = new Connection;
+    $userdata = new UsersData($conn);
+
+    if(!isset($_GET['id'])){
+      include 'includes/errormessage.php';
+
+   }else{
+      $id=$_GET['id'];
+      $result = $userdata->getUserID($id);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -8,28 +28,16 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>TechticsJa - Employee Dashboard</title>
+      <title>TechticsJa -<?php echo $title ?></title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
       <!-- site icon -->
-      <link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png">
-      <link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png">
-      <link rel="apple-touch-icon" sizes="72x72" href="/apple-icon-72x72.png">
-      <link rel="apple-touch-icon" sizes="76x76" href="/apple-icon-76x76.png">
-      <link rel="apple-touch-icon" sizes="114x114" href="/apple-icon-114x114.png">
-      <link rel="apple-touch-icon" sizes="120x120" href="/apple-icon-120x120.png">
-      <link rel="apple-touch-icon" sizes="144x144" href="/apple-icon-144x144.png">
-      <link rel="apple-touch-icon" sizes="152x152" href="/apple-icon-152x152.png">
-      <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon-180x180.png">
-      <link rel="icon" type="image/png" sizes="192x192"  href="/android-icon-192x192.png">
-      <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-      <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
-      <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-      <link rel="manifest" href="/manifest.json">
-      <meta name="msapplication-TileColor" content="#ffffff">
-      <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
-      <meta name="theme-color" content="#ffffff">
+
+      <link rel="apple-touch-icon" sizes="76x76" href="uploads/Favicon/apple-icon-76x76.png">
+      <link rel="apple-touch-icon" sizes="180x180" href="uploads/Favicon/apple-icon-180x180.png">
+      <link rel="icon" type="image/png" sizes="192x192"  href="uploads/Favicon/android-icon-192x192.png">
+      <link rel="icon" type="image/png" sizes="96x96" href="uploads/Favicon/favicon-96x96.png">
       <!-- bootstrap css -->
       <link rel="stylesheet" href="css-dashboard/bootstrap.min.css" />
       <!-- site css -->
@@ -56,70 +64,53 @@
                <div class="sidebar_blog_1">
                   <div class="sidebar-header">
                      <div class="logo_section">
-                        <a href="index.html"><img class="logo_icon img-responsive" src="images/logo/logo_icon.png" alt="#" /></a>
+                        <a href="index.html"><img class="logo_icon img-responsive" src="uploads/techticsja.png" alt="#" /></a>
                      </div>
                   </div>
                   <div class="sidebar_user_info">
                      <div class="icon_setting"></div>
                      <div class="user_profle_side">
-                        <div class="user_img"><img img class="logo_icon img-responsive" src="<?php echo empty($result['avatar_path'])? "uploads/blank.png":$result['avatar_path'];?>"/></div>
+                        <div class="user_img"><img class="img-responsive" src="<?php echo empty($result['Avatar_path'])? "uploads/blank.png":$result['Avatar_path'];?>"/></div>
                         <div class="user_info">
-                           <h6>John David</h6>
+                           <h6><?php 
+                                    echo $result['FirstName']." ".$result['LastName']?></h6>
                            <p><span class="online_animation"></span> Online</p>
                         </div>
                      </div>
                   </div>
                </div>
                <div class="sidebar_blog_2">
-                  <h4>General</h4>
+                  <h4>Menu</h4>
                   <ul class="list-unstyled components">
                      <li class="active">
-                     <a href="admin-dashboard.php"><i class="fa fa-clock-o orange_color"></i> <span>Dashboard</span></a>
+                     <a href="client-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fa fa-clock-o orange_color"></i> <span>Dashboard</span></a>
                      </li>
-                     <li><a href="widgets.html"><i class="fa fa-clock-o orange_color"></i> <span>Widgets</span></a></li>
                      <li>
-                        <a href="#element" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-diamond purple_color"></i> <span>Elements</span></a>
+                        <a href="#element" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-object-group blue2_color"></i> <span>Apps</span></a>
                         <ul class="collapse list-unstyled" id="element">
-                           <li><a href="general_elements.html">> <span>General Elements</span></a></li>
-                           <li><a href="media_gallery.html">> <span>Media Gallery</span></a></li>
-                           <li><a href="icons.html">> <span>Icons</span></a></li>
-                           <li><a href="invoice.html">> <span>Invoice</span></a></li>
+                           <li><a href="Profile-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fa fa-user red_color"></i> <span>Profile</span></a></li>
+                           <li><a href="project-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fa fa-files-o white_color"></i> <span>Project</span></a></li>
+                           <li><a href="email-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fa fa-envelope-o white_color"></i> <span>Email</span></a></li>
+                           <li><a href="media_gallery.php?id=<?php echo $result['id'] ?>"><i class="fa fa-picture-o yellow_color"></i> <span>Media Gallery</span></a></li>
+                           <li><a href="calendar-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fa fa-calendar green_color"></i> <span>Calendar</span></a></li>
+                           <li><a href="map.php?id=<?php echo $result['id'] ?>"><i class="fa fa-map purple_color2"></i> <span>Map</span></a></li>
                         </ul>
-                     </li>
-                     <li><a href="tables.html"><i class="fa fa-table purple_color2"></i> <span>Tables</span></a></li>
+                     </li>         
+
+                     
+                     <li><a href="price-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fa fa-briefcase blue1_color"></i> <span>Pricing Tables</span></a></li>
                      <li>
-                        <a href="#apps" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-object-group blue2_color"></i> <span>Apps</span></a>
-                        <ul class="collapse list-unstyled" id="apps">
-                           <li><a href="email.html">> <span>Email</span></a></li>
-                           <li><a href="calendar.html">> <span>Calendar</span></a></li>
-                           <li><a href="media_gallery.html">> <span>Media Gallery</span></a></li>
+                        <a href="#element" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-usd green_color"></i> <span>Payment</span></a>
+                        <ul class="collapse list-unstyled" id="element">
+                           <li><a href="invoice.php?id=<?php echo $result['id'] ?>"> <span>Invoice</span></a></li>
+                           <li><a href="payment_history.php?id=<?php echo $result['id'] ?>"> <span>History</span></a></li>
                         </ul>
-                     </li>
-                     <li><a href="price.html"><i class="fa fa-briefcase blue1_color"></i> <span>Pricing Tables</span></a></li>
+                     </li>              
                      <li>
-                        <a href="contact.html">
+                        <a href="contact.php?id=<?php echo $result['id'] ?>">
                         <i class="fa fa-paper-plane red_color"></i> <span>Contact</span></a>
                      </li>
-                     <li class="active">
-                        <a href="#additional_page" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-clone yellow_color"></i> <span>Additional Pages</span></a>
-                        <ul class="collapse list-unstyled" id="additional_page">
-                           <li>
-                              <a href="profile.html">> <span>Profile</span></a>
-                           </li>
-                           <li>
-                              <a href="project.html">> <span>Projects</span></a>
-                           </li>
-                           <li>
-                              <a href="login.html">> <span>Login</span></a>
-                           </li>
-                           <li>
-                              <a href="404_error.html">> <span>404 Error</span></a>
-                           </li>
-                        </ul>
-                     </li>
-                     <li><a href="map.html"><i class="fa fa-map purple_color2"></i> <span>Map</span></a></li>
-                     <li><a href="charts.html"><i class="fa fa-bar-chart-o green_color"></i> <span>Charts</span></a></li>
-                     <li><a href="settings.html"><i class="fa fa-cog yellow_color"></i> <span>Settings</span></a></li>
+                     <li><a href="settings.php?id=<?php echo $result['id'] ?>"><i class="fa fa-cog yellow_color"></i> <span>Settings</span></a></li>
                   </ul>
                </div>
             </nav>
@@ -132,7 +123,7 @@
                      <div class="full">
                         <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
                         <div class="logo_section">
-                           <a href="index.html"><img class="img-responsive" src="images/logo/logo.png" alt="#" /></a>
+                           <a href="index.html"><img class="img-responsive" src="uploads/techticsja.png" alt="#" /></a>
                         </div>
                         <div class="right_topbar">
                            <div class="icon_info">
@@ -143,13 +134,13 @@
                               </ul>
                               <ul class="user_profile_dd">
                                  <li>
-                                    <a class="dropdown-toggle" data-toggle="dropdown"><img img class="img-responsive rounded-circle" src="<?php echo empty($result['Avatar_path'])? "uploads/blank.png":$result['Avatar_path'];?>"/><span class="name_user"><?php echo $_SESSION['FirstName']?></span></a>
-                                    <div class="dropdown-menu">
-                                       <a class="dropdown-item" href="profile.html">My Profile</a>
-                                       <a class="dropdown-item" href="settings.html">Settings</a>
-                                       <a class="dropdown-item" href="help.html">Help</a>
-                                       <a class="dropdown-item" href="#"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
-                                    </div>
+                                       <a class="dropdown-toggle" data-bs-toggle="dropdown"><img class="img-responsive rounded-circle" src="<?php echo empty($result['Avatar_path'])? "uploads/blank.png":$result['Avatar_path'];?>"/><span class="name_user"><?php echo $result['FirstName']." ".$result['LastName'];?></span></a>
+                                       <div class="dropdown-menu">
+                                          <a class="dropdown-item" href="profile.php">My Profile</a>
+                                          <a class="dropdown-item" href="settings.php">Settings</a>
+                                          <a class="dropdown-item" href="help.php">Help</a>
+                                          <a class="dropdown-item" href="logout.php"><span>Log Out</span> <i class="fa fa-sign-out"></i></a>
+                                       </div>
                                  </li>
                               </ul>
                            </div>
@@ -516,6 +507,7 @@
             </div>
          </div>
       </div>
+      <?php }?>
       <!-- jQuery -->
       <script src="js-dashboard/jquery.min.js"></script>
       <script src="js-dashboard/popper.min.js"></script>

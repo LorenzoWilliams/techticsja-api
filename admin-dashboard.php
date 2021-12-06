@@ -1,3 +1,24 @@
+<?php 
+    use techticsja\Database\Connection;
+    use techticsja\Data\UsersData;
+
+    $title = 'Staff Dashboard'; 
+    
+    require_once 'v1/src/Database/Connection.php';
+    require_once 'includes/auth_check.php';
+    require_once 'v1/src/Data/UsersData.php'; 
+
+    $conn = new Connection;
+    $userdata = new UsersData($conn);
+
+    if(!isset($_GET['id'])){
+      include 'includes/errormessage.php';
+
+   }else{
+      $id=$_GET['id'];
+      $result = $userdata->getUserID($id);
+?>
+
 <!DOCTYPE html>
 <html lang="en">
    <head>
@@ -8,7 +29,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>TechticsJa - Employee Dashboard</title>
+      <title>TechticsJa - <?php echo $title ?></title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -56,13 +77,13 @@
                <div class="sidebar_blog_1">
                   <div class="sidebar-header">
                      <div class="logo_section">
-                        <a href="index.html"><img class="logo_icon img-responsive" src="images/logo/logo_icon.png" alt="#" /></a>
+                        <a href="index.html"><img class="logo_icon img-responsive" src="uploads/techticsja.png" alt="#" /></a>
                      </div>
                   </div>
                   <div class="sidebar_user_info">
                      <div class="icon_setting"></div>
                      <div class="user_profle_side">
-                        <div class="user_img"><img img class="logo_icon img-responsive" src="<?php echo empty($result['avatar_path'])? "uploads/blank.png":$result['avatar_path'];?>"/></div>
+                        <div class="user_img"><img img class="logo_icon img-responsive" src="<?php echo empty($result['Avatar_path'])? "uploads/blank.png":$result['Avatar_path'];?>"/></div>
                         <div class="user_info">
                            <h6>John David</h6>
                            <p><span class="online_animation"></span> Online</p>
@@ -132,7 +153,7 @@
                      <div class="full">
                         <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
                         <div class="logo_section">
-                           <a href="index.html"><img class="img-responsive" src="images/logo/logo.png" alt="#" /></a>
+                           <a href="index.html"><img class="img-responsive" src="uploads/techticsja.png" alt="#" /></a>
                         </div>
                         <div class="right_topbar">
                            <div class="icon_info">
@@ -143,7 +164,8 @@
                               </ul>
                               <ul class="user_profile_dd">
                                  <li>
-                                    <a class="dropdown-toggle" data-toggle="dropdown"><img img class="img-responsive rounded-circle" src="<?php echo empty($result['Avatar_path'])? "uploads/blank.png":$result['Avatar_path'];?>"/><span class="name_user"><?php echo $_SESSION['FirstName']?></span></a>
+                                    <a class="dropdown-toggle" data-toggle="dropdown"><img img class="img-responsive rounded-circle" src="<?php echo empty($result['Avatar_path'])? "uploads/blank.png":$result['Avatar_path'];?>"/><span class="name_user"><?php 
+                                    echo $result['FirstName']?></span></a>
                                     <div class="dropdown-menu">
                                        <a class="dropdown-item" href="profile.html">My Profile</a>
                                        <a class="dropdown-item" href="settings.html">Settings</a>
@@ -516,6 +538,7 @@
             </div>
          </div>
       </div>
+      <?php }?>
       <!-- jQuery -->
       <script src="js-dashboard/jquery.min.js"></script>
       <script src="js-dashboard/popper.min.js"></script>

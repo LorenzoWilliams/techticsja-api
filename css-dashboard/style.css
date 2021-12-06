@@ -55,6 +55,7 @@
 
 @import url(animate.css);
 @import url(flaticon.css);
+@import url(font-awesome.css);
 @import url(font-awesome.min.css);
 
 /*------------------------------------------------------------------
@@ -687,8 +688,8 @@ a:focus {
 
 .icon_info ul.user_profile_dd li>a::after {
     color: #fff;
-    top: 13px;
-    right: 28px;
+    top: 33px;
+    right: 14px;
     display: block;
     position: absolute;
     transform: translateY(-50%);
@@ -710,7 +711,7 @@ a:focus {
 .icon_info ul.user_profile_dd>li {
     width: auto;
     border-radius: 0;
-    background: #ff5722;
+    background: #d6b705;
     margin: 0;
     padding: 12px 0 12px 20px;
     height: auto;
@@ -720,7 +721,7 @@ a:focus {
     border: none;
     padding: 14px 26px 14px;
     font-size: 21px;
-    background: #ff5722;
+    background: #d6b705;
     margin-right: 0;
     cursor: pointer;
     float: left;
@@ -733,7 +734,7 @@ a:focus {
     position: absolute;
     right: -2px;
     top: -7px;
-    background: #ff5722;
+    background: #d6b705;
     border-radius: 100%;
     color: #fff;
     font-weight: 600;
@@ -743,7 +744,7 @@ a:focus {
 
 .icon_info ul.user_profile_dd li div a {
     font-size: 15px;
-    color: #15283c;
+    color: #1E7008;
     padding: 4px 15px;
     border-bottom: none;
     line-height: normal;
@@ -751,7 +752,7 @@ a:focus {
 
 .icon_info ul.user_profile_dd li div a span {
     font-size: 13px;
-    color: #15283c;
+    color: #1E7008;
     font-weight: normal;
     padding: 0;
     transition: all .3s ease-in-out;
@@ -760,7 +761,7 @@ a:focus {
 
 .icon_info ul.user_profile_dd li div a:hover,
 .icon_info ul.user_profile_dd li div a:focus {
-    background: #243147;
+    background: #1E7008;
     color: #fff;
 }
 
@@ -813,7 +814,7 @@ span {
 #sidebar {
     min-width: 280px;
     max-width: 280px;
-    background-color: #15283c;
+    background-color: #000000;
     color: #fff;
     transition: all 0.3s;
     position: relative;
@@ -868,7 +869,7 @@ span {
 }
 
 #sidebar ul.components ul {
-    background: #214162;
+    background: #082001;
     padding: 20px 0;
 }
 
@@ -933,7 +934,7 @@ a[data-toggle="collapse"] {
 
 .topbar .navbar {
     padding: 0;
-    background: #15283c;
+    background: #1E7008;
     border: none;
     border-radius: 0;
 }
@@ -944,7 +945,7 @@ a[data-toggle="collapse"] {
 
 .sidebar_user_info {
     padding: 15px 25px;
-    background: #214162;
+    background: #1E7008;
 }
 
 .user_img img {
@@ -1038,13 +1039,13 @@ a[data-toggle="collapse"] {
 }
 
 #sidebar h4 {
-    background: #15283c;
+    background: #000000;
     margin: 0;
     padding: 21px 25px 19px;
     font-weight: 500;
     font-size: 18px;
     color: #fff;
-    border-bottom: solid #ff5722 1px;
+    border-bottom: solid #007e1b 1px;
 }
 
 
