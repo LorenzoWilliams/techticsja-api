@@ -1,15 +1,8 @@
 <?php
 
 namespace techticsja\Database;
-/* use techticsja\Data\AppointmentsData;
-use techticsja\Data\GendersData;
-use techticsja\Data\InvoicesData;
-use techticsja\Data\PaymentsData;
-use techticsja\Data\Pay_StatusData;
-use techticsja\Data\ProductsData;
-use techticsja\Data\RolesData;
 use techticsja\Data\UsersData;
-use techticsja\Data\VisitsData; */
+require_once 'v1/src/Data/UsersData.php'; 
 
 
 
@@ -42,36 +35,37 @@ class Connection {
         try {
             $conn = new \PDO('mysql:host='.$this->host.';dbname='.$this->db.';charset=utf8',$this->username,$this->password);
             return $conn;
+            
         }
         
         catch (PDOException $e){
             echo "An Error has occured to the database".$e->getMessage();
             exit();
         }
+
+
     }
 
-
+    
 }
 
-/* require_once 'AppointmentsData.php';
-require_once 'GendersData.php';
-require_once 'InvoicesData.php';
-require_once 'PaymentsData.php';
-require_once 'PayStatusData.php';
-require_once 'ProductsData.php';
-require_once 'RolesData.php';
-require_once 'UsersData.php';
-require_once 'VisitsData.php'; */
 
-/* $appointment = new AppointmentsData($pdo);
-$gender = new GendersData($pdo);
-$invoice = new InvoicesData($pdo);
-$payment = new PaymentsData($pdo);
-$pay_status = new Pay_StatusData($pdo);
-$product = new ProductsData($pdo);
-$role = new RolesData($pdo);
-$user = new UsersData($pdo);
-$visit = new VisitsData($pdo);
- */
+$conn = new Connection;
+$user = new UsersData($conn);
+
+$user->addNewUser(array(
+    "Role_id" => '2', 
+    "FirstName" => 'Lorenzo', 
+    "LastName" =>'Williams', 
+    "Gender_id" => '1', 
+    "DOB" => '1991-02-12', 
+    "Email" => 'Lorenzo_1Williams@hotmail.com', 
+    "Phone" => '8763716518', 
+    "Address" => 'Portmore, St. Catherine', 
+    "Password" => '12345',
+    "Avatar_path" => 'uploads/ceo.jpg',
+    "Member_since" => '')
+);
+
 
 ?>

@@ -9,11 +9,11 @@
     require_once 'includes/header.php'; 
     require_once 'v1/src/Database/Connection.php';
 
-    if (isset($_GET["key"]) && isset($_GET["Email"]) && isset($_GET["action"]) && ($_GET["action"] == "reset") && !isset($_POST["action"])) {
+    if (isset($_GET["key"]) && isset($_GET["email"]) && isset($_GET["action"]) && ($_GET["action"] == "reset") && !isset($_POST["action"])) {
         $key = $_GET["key"];
-        $email = $_GET["Email"];
+        $email = $_GET["email"];
         $curDate = date("Y-m-d H:i:s");
-        $query = mysqli_query($con, "SELECT * FROM `password_reset_temp` WHERE `key`='" . $key . "' and `email`='" . $email . "';");
+        $query = mysqli_query($conn, "SELECT * FROM `password_reset_temp` WHERE `Key`='" . $key . "' and `Email`='" . $email . "';");
         $row = mysqli_num_rows($query);
         if ($row == "") {
             $error .= '<h2>Invalid Link</h2>';
@@ -76,6 +76,7 @@
         }
     }
     ?>
+
 <br><br><br><br>
 
 <?php include 'includes/footer.php' ?>

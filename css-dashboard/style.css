@@ -53,10 +53,10 @@
     2. import files
 -------------------------------------------------------------------*/
 
-@import url(animate.css);
-@import url(flaticon.css);
-@import url(font-awesome.css);
-@import url(font-awesome.min.css);
+
+@import url(forms.css);
+@import url(tables.css);
+
 
 /*------------------------------------------------------------------
     3. basic
@@ -790,6 +790,14 @@ a:focus {
     border: none;
 }
 
+.fixed-bottom {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 280px;
+    z-index: 1030;
+  }
+  
 
 /**-- sidebar --**/
 
@@ -869,13 +877,13 @@ span {
 }
 
 #sidebar ul.components ul {
-    background: #082001;
+    background: #838383;
     padding: 20px 0;
 }
 
 #sidebar ul.components ul li a {
-    font-size: 13px;
-    color: rgba(255, 255, 255, .7);
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.877);
     padding: 7px 35px;
 }
 

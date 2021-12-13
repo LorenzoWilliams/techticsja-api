@@ -128,7 +128,7 @@
                         <div class="right_topbar">
                            <div class="icon_info">
                               <ul>
-                                 <li><a href="#"><i class="fa fa-bell-o"></i><span class="badge">2</span></a></li>
+                                 <li><a href="#"><i class="fa fa-bell"></i><span class="badge">2</span></a></li>
                                  <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
                                  <li><a href="#"><i class="fa fa-envelope-o"></i><span class="badge">3</span></a></li>
                               </ul>
@@ -148,6 +148,7 @@
                      </div>
                   </nav>
                </div>
+               <br>
                <!-- end topbar -->
                <!-- dashboard inner -->
                <div class="midde_cont">
@@ -181,22 +182,22 @@
 
 
                   <!-- footer -->
-                  <div class="container-fluid">
-                     <div class="footer">
-                     <footer class="d-flex flex-wrap justify-content-between align-items-center ">
-                        <div class="col-md-5 d-flex align-items-center ">
-                          <span style="margin-left: 70px; margin-right:20px">Copyright &copy; - <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
-                          <img src="uploads/techticsja.png" alt="techticsja" height="50px"; width="50px">
-                          </a>TechticsJa <?php echo date('Y');?></span>
-                          </div>
-                        <ul class="nav col-md-6 list-unstyled d-flex align-items-center">
-                          <li class="ms-3">Connect With Us - <a href="https://www.facebook.com/Techtics_ja-346086749335138/"><img src="uploads/social/facebook.png" alt="" width="45px"; height="45px" /></a></li>
-                            <li class="ms-3"><a href="mailto:techtics.ja@gmail.com?"><img src="uploads/social/Gmail.png" alt="" width="45px"; height="45px" /></a></li>
-                            <li class="ms-3"><a href="https://www.instagram.com/techticsja/"><img src="uploads/social/instagram.png" alt="" width="45px"; height="45px"/></a></li>
-                            <li class="ms-3"><a href="https://wa.me/18763716518"><img src="uploads/social/whatsapp.png" alt="" width="45px"; height="45px"/></a></li>
-                            <li class="ms-3"><a href="https://www.youtube.com/channel/UCK7feUh0MtVUs3gF6YYIB4Q"><img src="uploads/social/Youtube.png" alt="" width="45px"; height="45px"/></a></li>
-                        </ul>
-                      </footer>
+                  <div class="fixed-bottom container-sm;">
+                     <div class="footer ">
+                        <footer class="d-flex flex-wrap justify-content-between align-items-center">
+                           <div class="col-md-5 d-flex align-items-center ">
+                           <span style="margin-left: 70px; margin-right:20px">Copyright &copy; - <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+                           <img src="uploads/techticsja.png" alt="techticsja" height="50px"; width="50px">
+                           </a>TechticsJa <?php echo date('Y');?></span>
+                           </div>
+                           <ul class="nav col-md-6 list-unstyled d-flex align-items-center">
+                           <li class="ms-3">Connect With Us - <a href="https://www.facebook.com/Techtics_ja-346086749335138/"><img src="uploads/social/facebook.png" alt="" width="45px"; height="45px" /></a></li>
+                              <li class="ms-3"><a href="mailto:techtics.ja@gmail.com?"><img src="uploads/social/Gmail.png" alt="" width="45px"; height="45px" /></a></li>
+                              <li class="ms-3"><a href="https://www.instagram.com/techticsja/"><img src="uploads/social/instagram.png" alt="" width="45px"; height="45px"/></a></li>
+                              <li class="ms-3"><a href="https://wa.me/18763716518"><img src="uploads/social/whatsapp.png" alt="" width="45px"; height="45px"/></a></li>
+                              <li class="ms-3"><a href="https://www.youtube.com/channel/UCK7feUh0MtVUs3gF6YYIB4Q"><img src="uploads/social/Youtube.png" alt="" width="45px"; height="45px"/></a></li>
+                           </ul>
+                        </footer>
                      </div>
                   </div>
                </div>

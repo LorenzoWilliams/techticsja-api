@@ -50,7 +50,8 @@
             "Phone" => $phone, 
             "Address" => $address, 
             "Password" => $password,
-            "Avatar_path" => $destination)
+            "Avatar_path" => $destination,
+            "Member_Since" => $member_since)
         );
 /*         $role = new RolesData($conn);
         $role = $role->getRoleById($role);

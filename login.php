@@ -13,11 +13,13 @@
     $conn = new Connection;
     $userdata = new UsersData($conn);
  
+    
+
    
     //If data was submitted via a form POST request, then...
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         $email = strtolower(trim($_POST['Email']));
-        $password = md5($_POST['Password']);
+        $password = $_POST['Password'];
 
         $result = $userdata->getloginUserRole(array(
           "Email" => $email, 
@@ -33,18 +35,13 @@
             if($_SESSION['Role_id']== "1"){
               header("Location: client-dashboard.php"."?id=".$result['id']);
               
-            }else{
+            }elseif($_SESSION['Role_id']== "2"){
               header("Location: admin-dashboard.php"."?id=".$result['id']);
+
+            }else {
+              header("Location: employee-dashboard.php"."?id=".$result['id']);
             }
         }
-
-
-        /* if($_SESSION['Role']== "Client"){
-                      header("Location: client-dashboard.php");
-        }else{
-                      header("Location: admin-dashboard.php");
-        }
-         */
     }
 ?>
 
