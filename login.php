@@ -39,7 +39,7 @@
               header("Location: admin-dashboard.php"."?id=".$result['id']);
 
             }else {
-              header("Location: employee-dashboard.php"."?id=".$result['id']);
+              header("Location: staff-dashboard.php"."?id=".$result['id']);
             }
         }
     }

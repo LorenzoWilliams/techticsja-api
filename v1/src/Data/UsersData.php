@@ -17,7 +17,7 @@ class UsersData {
     public function getAllUsers()
     { 
         $sql = "SELECT 
-                    u.id,r.Roles, u.FirstName, u.LastName, u.DOB, g.Gender, u.DOB, u.Email, u.Phone, u.Address, u.Password, u.Avatar_path, u.Member_since
+                    u.id,r.Role, u.FirstName, u.LastName, u.DOB, g.Gender, u.DOB, u.Email, u.Phone, u.Address, u.Password, u.Avatar_path, u.Member_since
                 FROM 
                     Users u 
                 JOIN 
@@ -34,10 +34,30 @@ class UsersData {
         }
     }
 
+    public function getUsers()
+    { 
+        try{
+        $sql = "SELECT 
+                    u.id,r.Role, u.FirstName, u.LastName, u.DOB, g.Gender, u.DOB, u.Email, u.Phone, u.Address, u.Password, u.Avatar_path, u.Member_since
+                FROM 
+                    Users u 
+                JOIN 
+                    Genders g on g.id = u.Gender_id
+                JOIN 
+                    Roles r on r.id = u.Role_id";
+
+            $result = $this->db->query($sql);
+            return $result;
+            } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+            }
+    }
+
     public function getUserByID($id)
     {
         $sql = "SELECT 
-                    r.Role, u.FirstName, u.LastName, u.DOB, g.Gender, u.DOB, u.Email, u.Phone, u.Address, u.Password, u.Avatar_path, u.Member_since
+                    u.id,r.Role, u.FirstName, u.LastName, u.DOB, g.Gender, u.DOB, u.Email, u.Phone, u.Address, u.Password, u.Avatar_path, u.Member_since
                 FROM 
                     Users u 
                 JOIN 

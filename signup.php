@@ -21,6 +21,14 @@
 
 /*     $results = $crud->getSpecialties(); */
 ?>
+<style>
+	img#cimg{
+		height: 15vh;
+		width: 15vh;
+		object-fit: cover;
+		border-radius: 100% 100%;
+	}
+</style>
 
 <div class="container-md" > 
   <br>
@@ -80,11 +88,16 @@
             <label for="Phone"><b>Phone Number</b></label><br>
             <input type="text" placeholder="Phone" name="Phone" required><br>
 
-            <div class="custom-file">
-              <label for="avatar"><b>Upload Image</b>(Optional)</label><br>
-              <input type="file" accept="image/*" class="custom-file-input" id="avatar" name="avatar" ><br>
-            </div>
-            
+						<div class="form-group">
+							<label for="" class="control-label">Avatar</label>
+							<div class="custom-file">
+		                      <input type="file" class="custom-file-input" id="customFile" name="img" onchange="displayImg(this,$(this))">
+		                    </div>
+						</div><br>
+						<div class="form-group d-flex  align-items-center">
+							<img src="<?php echo isset($avatar) ? 'assets/uploads/'.$avatar :'' ?>" alt="Avatar" id="cimg" class="img-fluid img-thumbnail ">
+						</div><br>
+
             <input type="submit" name="submit" value="Submit">
         
       </form>
@@ -92,5 +105,17 @@
   </div>
 
 <br><br><br><br>
+<script>
+	function displayImg(input,_this) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+	        	$('#cimg').attr('src', e.target.result);
+	        }
+
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
+</script>
 
 <?php include 'includes/footer.php' ?>

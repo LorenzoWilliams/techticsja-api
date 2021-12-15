@@ -8,7 +8,7 @@
     require_once 'v1/src/Database/Connection.php';
     require_once 'v1/src/Data/UsersData.php';
     require_once 'v1/src/Data/RolesData.php'; 
-/*     require_once 'includes/auth_check.php'; */
+    require_once 'includes/auth_check.php';
 
     $conn = new Connection;
     $userdata = new UsersData($conn);
@@ -18,7 +18,8 @@
 
    }else{
       $id=$_GET['id'];
-      $result = $userdata->getUserByID($id);
+      $result = $userdata->getUserID($id);
+      $result2 = $userdata->getUserByID($id);
 ?>
 
 <!DOCTYPE html>
@@ -86,7 +87,7 @@
                   <h4>Menu</h4>
                   <ul class="list-unstyled components">
                      <li class="active">
-                     <a href="admin-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fa fa-tachometer-alt"></i> <span>Dashboard</span></a>
+                     <a href="client-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fa fa-clock"></i> <span>Dashboard</span></a>
                      </li>
                      <li>
                         <a href="#project" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-layer-group"></i> <span>Project</span></a>
@@ -96,23 +97,6 @@
                         </ul>
                      </li>  
                      <li><a href="project-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fas fa-tasks white_color"></i> <span>Task</span></a></li>
-
-                     <li><a href="report-dashboard.php?id=<?php echo $result['id'] ?>"><i class="far fa-list-alt"></i> <span>Report</span></a></li>
-                     <li>
-                        <a href="#payment" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-file-invoice-dollar"></i> <span>Payment</span></a>
-                        <ul class="collapse list-unstyled" id="payment">
-                           <li><a href="invoice.php?id=<?php echo $result['id'] ?>"> <span>> Invoice</span></a></li>
-                           <li><a href="payment_history.php?id=<?php echo $result['id'] ?>"> <span>> History</span></a></li>
-                        </ul>
-                     </li>                       
-                     <li>
-                        <a href="#users" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-users"></i> <span>User</span></a>
-                        <ul class="collapse list-unstyled" id="users">
-                        <li><a href="new_user.php?id=<?php echo $result['id'] ?>"> <span>> Add New</span></a></li>
-                           <li><a href="user_list.php?id=<?php echo $result['id'] ?>"> <span>> List</span></a></li>
-                        </ul>
-                     </li> 
- 
                      <li><a href="settings.php?id=<?php echo $result['id'] ?>"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
            
                   </ul>
@@ -166,7 +150,7 @@
                      <div class="col-12">
                         <div class="card">
                            <div class="card-body">
-                           Welcome <?php echo $result['Role'] ?> !
+                           Welcome <?php echo $result2['Role'] ?> !
                            </div>
                         </div>
                      </div>

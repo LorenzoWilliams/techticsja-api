@@ -8,7 +8,7 @@
     require_once 'v1/src/Database/Connection.php';
     require_once 'v1/src/Data/UsersData.php';
     require_once 'v1/src/Data/RolesData.php'; 
-/*     require_once 'includes/auth_check.php'; */
+    require_once 'includes/auth_check.php';
 
     $conn = new Connection;
     $userdata = new UsersData($conn);
@@ -90,22 +90,22 @@
                      <a href="client-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fa fa-clock"></i> <span>Dashboard</span></a>
                      </li>
                      <li>
-                        <a href="#element" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-layer-group"></i></i> <span>Project</span></a>
+                        <a href="#project" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-layer-group"></i> <span>Project</span></a>
                         <ul class="collapse list-unstyled" id="project">
-                           <li><a href="new_project.php?id=<?php echo $result['id'] ?>"> <span>Add New</span></a></li>
-                           <li><a href="project_list.php?id=<?php echo $result['id'] ?>"> <span>List</span></a></li>
+                        <li><a href="invoice.php?id=<?php echo $result['id'] ?>"> <span>> Add New</span></a></li>
+                           <li><a href="payment_history.php?id=<?php echo $result['id'] ?>"> <span>> List</span></a></li>
                         </ul>
                      </li>  
                      <li><a href="project-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fas fa-tasks white_color"></i> <span>Task</span></a></li>
 
                      <li><a href="price-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fas fa-table"></i> <span>Price Table</span></a></li>
                      <li>
-                        <a href="#element" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fas fa-file-invoice-dollar"></i> <span>Payment</span></a>
+                        <a href="#payment" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-file-invoice-dollar"></i> <span>Payment</span></a>
                         <ul class="collapse list-unstyled" id="payment">
-                           <li><a href="invoice.php?id=<?php echo $result['id'] ?>"> <span>Invoice</span></a></li>
-                           <li><a href="payment_history.php?id=<?php echo $result['id'] ?>"> <span>History</span></a></li>
+                           <li><a href="invoice.php?id=<?php echo $result['id'] ?>"> <span>> Invoice</span></a></li>
+                           <li><a href="payment_history.php?id=<?php echo $result['id'] ?>"> <span>> History</span></a></li>
                         </ul>
-                     </li>              
+                     </li>             
                      <li>
                         <a href="contact.php?id=<?php echo $result['id'] ?>">
                         <i class="fas fa-file-signature"></i> <span>Contact</span></a>

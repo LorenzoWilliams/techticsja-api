@@ -2,12 +2,10 @@
     use techticsja\Database\Connection;
     use techticsja\Data\UsersData;
 
-
-    $title = 'Home'; 
+    $title = 'User List'; 
     
     require_once 'v1/src/Database/Connection.php';
     require_once 'v1/src/Data/UsersData.php';
-    require_once 'v1/src/Data/RolesData.php'; 
 /*     require_once 'includes/auth_check.php'; */
 
     $conn = new Connection;
@@ -19,6 +17,7 @@
    }else{
       $id=$_GET['id'];
       $result = $userdata->getUserByID($id);
+      $results = $userdata->getUsers();
 ?>
 
 <!DOCTYPE html>
@@ -58,6 +57,14 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
+      <style>
+         img#cimg{
+            height: 15vh;
+            width: 15vh;
+            object-fit: cover;
+            border-radius: 100% 100%;
+         }
+      </style>
    </head>
    <body class="dashboard dashboard_1">
       <div class="full_container">
@@ -86,7 +93,7 @@
                   <h4>Menu</h4>
                   <ul class="list-unstyled components">
                      <li class="active">
-                     <a href="admin-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fa fa-tachometer-alt"></i> <span>Dashboard</span></a>
+                     <a href="client-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fa fa-tachometer-alt"></i> <span>Dashboard</span></a>
                      </li>
                      <li>
                         <a href="#project" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-layer-group"></i> <span>Project</span></a>
@@ -127,7 +134,7 @@
                      <div class="full">
                         <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
                         <div class="logo_section">
-                           <a href="index.html"><img class="img-responsive" src="uploads/techticsja.png" alt="#" /></a>
+                           <a href="#"><img class="img-responsive" src="uploads/techticsja.png" alt="#" /></a>
                         </div>
                         <div class="right_topbar">
                            <div class="icon_info">
@@ -161,46 +168,70 @@
                      <div class="col-sm-6">
                         <h1 class="m-0"><?php echo $title ?></h1>
                      </div>
-                     <hr>
-                  </div>
-                     <div class="col-12">
-                        <div class="card">
-                           <div class="card-body">
-                           Welcome <?php echo $result['Role'] ?> !
-                           </div>
-                        </div>
-                     </div>
-                     <hr>
-                     <div class="row">
-                        <div class="col-md-8">
+                     <hr><br><br>
+                     <div class="col-lg-12">
                            <div class="card card-outline card-success">
                               <div class="card-header">
-                                 <b>Project Progress</b>
-                              </div>
-                              <div class="card-body p-0">
-                                 <div class="table-responsive">
-                                    <table class="table m-0 table-hover">
-                                       <colgroup>
-                                          <col width="5%">
-                                          <col width="30%">
-                                          <col width="35%">
-                                          <col width="15%">
-                                          <col width="15%">
-                                       </colgroup>
-                                       <thead>
-                                          <th>#</th>
-                                          <th>Project</th>
-                                          <th>Progress</th>
-                                          <th>Status</th>
-                                          <th></th>
-                                       </thead>
-                                    </table>
+                                 <div class="card-tools">
+                                    <a class="btn btn-block btn-sm btn-default btn-flat border-primary" href="./index.php?page=new_user"><i class="fa fa-plus"></i> Add New User</a>
                                  </div>
+                              </div>
+                              <div class="card-body">
+                                 <table class="table tabe-hover table-bordered" id="list">
+                                    <thead>
+                                       <tr>
+                                          <th class="text-center">#</th>
+                                          <th>Name</th>
+                                          <th>Email</th>
+                                          <th>Role</th>
+                                          <th>Action</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php while($r = $results->fetch(PDO::FETCH_ASSOC)) {?>
+                                       <tr>
+                                             <td><?php echo $r['id']?></td>
+                                             <td><?php echo $r['FirstName'].' ' .$r['LastName']?></td>
+                                             <td><?php echo $r['Email'] ?></td>
+                                             <td><?php echo $r['Role'] ?></td>
+                                             <td class="text-center">
+      <!--                                        <li>
+                        <a href="#project" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-layer-group"></i> <span>Project</span></a>
+                        <ul class="collapse list-unstyled" id="project">
+                        <li><a href="invoice.php?id=<?php echo $result['id'] ?>"> <span>> Add New</span></a></li>
+                           <li><a href="payment_history.php?id=<?php echo $result['id'] ?>"> <span>> List</span></a></li>
+                        </ul>
+                     </li>  
+
+                                             <div class="dropdown">
+                                                <a class="btn btn-secondary dropdown-toggle" href="#action"  data-bs-toggle="collapse" aria-expanded="false">
+                                                   Dropdown link
+                                                </a>
+
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="action">
+                                                   <li><a class="dropdown-item" href="#">Action</a></li>
+                                                   <li><a class="dropdown-item" href="#">Another action</a></li>
+                                                   <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                                </ul>
+                                             </div> -->
+                                             <div class="dropdown">
+                                                <button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                      Action
+                                                   </button>
+                                                   <ul class="dropdown-menu">
+                                                      <li><a class="dropdown-item view_user" href="view_user.php?id=<?php echo $r['id'] ?>">View</a></li>
+                                                      <li><a href="edit_user.php?id=<?php echo $r['id'] ?>" class="dropdown-item edit_user">Edit</a></li>
+                                                      <li><a onclick="return confirm ('Are you sure you want to delete this record?');" href="delete_user.php?id=<?php echo $r['id'] ?>" class="dropdown-item delete_user">Delete</a></li>
+                                                   </ul>
+                                                   </div>
+                                                </td>
+                                             </tr>
+                                          <?php } ?>
+                                    </tbody>
                               </div>
                            </div>
                         </div>
-                     </div>
-                  </div>  
+                  <br><br><br><br>
                   <!-- footer -->
                   <div class="fixed-bottom container-sm;">
                      <div class="footer ">
@@ -247,6 +278,18 @@
          var ps = new PerfectScrollbar('#sidebar');
       </script>
       <!-- custom js -->
+      <script>
+	function displayImg(input,_this) {
+	    if (input.files && input.files[0]) {
+	        var reader = new FileReader();
+	        reader.onload = function (e) {
+	        	$('#cimg').attr('src', e.target.result);
+	        }
+
+	        reader.readAsDataURL(input.files[0]);
+	    }
+	}
+</script>
       <script src="js-dashboard/chart_custom_style1.js"></script>
       <script src="js-dashboard/custom.js"></script>
       <script src="https://kit.fontawesome.com/373c402c31.js" crossorigin="anonymous"></script>

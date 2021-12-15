@@ -24,6 +24,7 @@
 <script src="scripts/date.js"></script>
 <script type="text/javascript" src="scripts/pricingJquery.js"></script>
 <script type="text/javascript" src="scripts/active.js"></script>
+<script type="text/javascript" src="scripts/displayimg.js"></script>
 
 </body>
 </html>
