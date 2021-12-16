@@ -8,6 +8,7 @@
     require_once 'v1/src/Database/Connection.php';
     require_once 'v1/src/Data/UsersData.php';
     require_once 'v1/src/Data/RolesData.php'; 
+    require_once 'includes/sessions.php';
     require_once 'includes/auth_check.php';
 
     $conn = new Connection;
@@ -74,7 +75,7 @@
                   <div class="sidebar_user_info">
                      <div class="icon_setting"></div>
                      <div class="user_profle_side">
-                        <div class="user_img"><img class="img-responsive" src="<?php echo empty($result['Avatar_path'])? "uploads/blank.png":$result['Avatar_path'];?>"/></div>
+                        <div class="user_img"><img class="img-responsive" style="width: 74px; height:74px" src="<?php echo empty($result['Avatar_path'])? "uploads/blank.png":$result['Avatar_path'];?>"/></div>
                         <div class="user_info">
                            <h6><?php 
                                     echo $result['FirstName']." ".$result['LastName']?></h6>
@@ -134,7 +135,7 @@
                               </ul>
                               <ul class="user_profile_dd">
                                  <li>
-                                       <a class="dropdown-toggle" data-bs-toggle="dropdown"><img class="img-responsive rounded-circle" src="<?php echo empty($result['Avatar_path'])? "uploads/blank.png":$result['Avatar_path'];?>"/><span class="name_user"><?php echo $result['FirstName']." ".$result['LastName'];?></span></a>
+                                       <a class="dropdown-toggle" data-bs-toggle="dropdown"><img class="img-responsive rounded-circle" style="width: 35px; height:35px" src="<?php echo empty($result['Avatar_path'])? "uploads/blank.png":$result['Avatar_path'];?>"/><span class="name_user"><?php echo $result['FirstName']." ".$result['LastName'];?></span></a>
                                        <div class="dropdown-menu">
                                           <a class="dropdown-item" href="profile.php">My Profile</a>
                                           <a class="dropdown-item" href="settings.php">Settings</a>

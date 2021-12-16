@@ -46,13 +46,8 @@
       <link rel="stylesheet" href="css-dashboard/style.css" />
       <!-- responsive css -->
       <link rel="stylesheet" href="css-dashboard/responsive.css" />
-
-      <!-- select bootstrap -->
-      <link rel="stylesheet" href="css-dashboard/bootstrap-select.css" />
       <!-- scrollbar css -->
       <link rel="stylesheet" href="css-dashboard/perfect-scrollbar.css" />
-      <!-- custom css -->
-      <link rel="stylesheet" href="css-dashboard/custom.css" />
       <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
@@ -80,7 +75,7 @@
                   <div class="sidebar_user_info">
                      <div class="icon_setting"></div>
                      <div class="user_profle_side">
-                        <div class="user_img"><img class="img-responsive" src="<?php echo empty($result['Avatar_path'])? "uploads/blank.png":$result['Avatar_path'];?>"/></div>
+                        <div class="user_img"><img class="img-responsive" style="width: 74px; height:74px" src="<?php echo empty($result['Avatar_path'])? "uploads/blank.png":$result['Avatar_path'];?>"/></div>
                         <div class="user_info">
                            <h6><?php 
                                     echo $result['FirstName']." ".$result['LastName']?></h6>
@@ -145,7 +140,7 @@
                               </ul>
                               <ul class="user_profile_dd">
                                  <li>
-                                       <a class="dropdown-toggle" data-bs-toggle="dropdown"><img class="img-responsive rounded-circle" src="<?php echo empty($result['Avatar_path'])? "uploads/blank.png":$result['Avatar_path'];?>"/><span class="name_user"><?php echo $result['FirstName']." ".$result['LastName'];?></span></a>
+                                       <a class="dropdown-toggle" data-bs-toggle="dropdown"><img class="img-responsive rounded-circle" style="width: 35px; height:35px" src="<?php echo empty($result['Avatar_path'])? "uploads/blank.png":$result['Avatar_path'];?>"/><span class="name_user"><?php echo $result['FirstName']." ".$result['LastName'];?></span></a>
                                        <div class="dropdown-menu">
                                           <a class="dropdown-item" href="profile.php">My Profile</a>
                                           <a class="dropdown-item" href="settings.php">Settings</a>
@@ -195,32 +190,13 @@
                                              <td><?php echo $r['Email'] ?></td>
                                              <td><?php echo $r['Role'] ?></td>
                                              <td class="text-center">
-      <!--                                        <li>
-                        <a href="#project" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-layer-group"></i> <span>Project</span></a>
-                        <ul class="collapse list-unstyled" id="project">
-                        <li><a href="invoice.php?id=<?php echo $result['id'] ?>"> <span>> Add New</span></a></li>
-                           <li><a href="payment_history.php?id=<?php echo $result['id'] ?>"> <span>> List</span></a></li>
-                        </ul>
-                     </li>  
-
                                              <div class="dropdown">
-                                                <a class="btn btn-secondary dropdown-toggle" href="#action"  data-bs-toggle="collapse" aria-expanded="false">
-                                                   Dropdown link
-                                                </a>
-
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" id="action">
-                                                   <li><a class="dropdown-item" href="#">Action</a></li>
-                                                   <li><a class="dropdown-item" href="#">Another action</a></li>
-                                                   <li><a class="dropdown-item" href="#">Something else here</a></li>
-                                                </ul>
-                                             </div> -->
-                                             <div class="dropdown">
-                                                <button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <button type="button" class="btn btn-default btn-sm btn-flat border-info wave-effect text-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" >
                                                       Action
                                                    </button>
                                                    <ul class="dropdown-menu">
-                                                      <li><a class="dropdown-item view_user" href="view_user.php?id=<?php echo $r['id'] ?>">View</a></li>
-                                                      <li><a href="edit_user.php?id=<?php echo $r['id'] ?>" class="dropdown-item edit_user">Edit</a></li>
+                                                      <li><a class="dropdown-item view_user" href="view-user.php?id=<?php echo $r['id'] ?>">View</a></li>
+                                                      <li><a href="edit-user.php?id=<?php echo $r['id'] ?>" class="dropdown-item edit_user">Edit</a></li>
                                                       <li><a onclick="return confirm ('Are you sure you want to delete this record?');" href="delete_user.php?id=<?php echo $r['id'] ?>" class="dropdown-item delete_user">Delete</a></li>
                                                    </ul>
                                                    </div>
@@ -257,41 +233,36 @@
          </div>
       </div>
       <?php }?>
-      <!-- jQuery -->
-      <script src="js-dashboard/jquery.min.js"></script>
-      <script src="js-dashboard/popper.min.js"></script>
-      <script src="js-dashboard/bootstrap.min.js"></script>
+
       <!-- wow animation -->
       <script src="js-dashboard/animate.js"></script>
-      <!-- select country -->
-      <script src="js-dashboard/bootstrap-select.js"></script>
-      <!-- owl carousel -->
-      <script src="js-dashboard/owl.carousel.js"></script> 
-      <!-- chart js -->
-      <script src="js-dashboard/Chart.min.js"></script>
-      <script src="js-dashboard/Chart.bundle.min.js"></script>
-      <script src="js-dashboard/utils.js"></script>
-      <script src="js-dashboard/analyser.js"></script>
       <!-- nice scrollbar -->
       <script src="js-dashboard/perfect-scrollbar.min.js"></script>
       <script>
          var ps = new PerfectScrollbar('#sidebar');
       </script>
       <!-- custom js -->
-      <script>
-	function displayImg(input,_this) {
-	    if (input.files && input.files[0]) {
-	        var reader = new FileReader();
-	        reader.onload = function (e) {
-	        	$('#cimg').attr('src', e.target.result);
-	        }
-
-	        reader.readAsDataURL(input.files[0]);
-	    }
-	}
-</script>
-      <script src="js-dashboard/chart_custom_style1.js"></script>
-      <script src="js-dashboard/custom.js"></script>
       <script src="https://kit.fontawesome.com/373c402c31.js" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+        <!-- DataTables CSS -->
+      <link rel="stylesheet"
+            href=
+      "https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
+      
+      <!-- DataTables JS -->
+      <script src=
+      "https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js">
+      </script>
+      <script>
+      // Initialize the DataTable
+      $(document).ready(function () {
+         $('#tableID').DataTable({
+
+            // Set the pagination length menu
+            // to the given allowed sizes
+            lengthMenu: [ 5, 10, 15 ]
+         });
+      }); 
+      </script>
    </body>
 </html>

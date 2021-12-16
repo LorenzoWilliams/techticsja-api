@@ -1,18 +1,24 @@
 <?php 
     use techticsja\Database\Connection;
     use techticsja\Data\UsersData;
+    use techticsja\Data\GendersData;
+    use techticsja\Data\RolesData;
 
 
-    $title = 'Home'; 
+    $title = 'Edit User'; 
     
     require_once 'v1/src/Database/Connection.php';
     require_once 'v1/src/Data/UsersData.php';
-    require_once 'v1/src/Data/RolesData.php'; 
-    require_once 'includes/sessions.php';
-    require_once 'includes/auth_check.php';
+    require_once 'v1/src/Data/GendersData.php';
+    require_once 'v1/src/Data/RolesData.php';
+/*     require_once 'includes/auth_check.php'; */
 
     $conn = new Connection;
     $userdata = new UsersData($conn);
+    $gendersdata = new GendersData($conn);
+    $genders = $gendersdata->getAllGenders();
+    $rolesdata = new RolesData($conn);
+    $roles = $rolesdata->getAllRoles();
 
     if(!isset($_GET['id'])){
       include 'includes/errormessage.php';
@@ -59,6 +65,14 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
+      <style>
+         img#cimg{
+            height: 15vh;
+            width: 15vh;
+            object-fit: cover;
+            border-radius: 100% 100%;
+         }
+      </style>
    </head>
    <body class="dashboard dashboard_1">
       <div class="full_container">
@@ -87,7 +101,7 @@
                   <h4>Menu</h4>
                   <ul class="list-unstyled components">
                      <li class="active">
-                     <a href="admin-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fa fa-tachometer-alt"></i> <span>Dashboard</span></a>
+                     <a href="client-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fa fa-tachometer-alt"></i> <span>Dashboard</span></a>
                      </li>
                      <li>
                         <a href="#project" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-layer-group"></i> <span>Project</span></a>
@@ -128,7 +142,7 @@
                      <div class="full">
                         <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
                         <div class="logo_section">
-                           <a href="index.html"><img class="img-responsive" src="uploads/techticsja.png" alt="#" /></a>
+                           <a href="#"><img class="img-responsive" src="uploads/techticsja.png" alt="#" /></a>
                         </div>
                         <div class="right_topbar">
                            <div class="icon_info">
@@ -162,46 +176,82 @@
                      <div class="col-sm-6">
                         <h1 class="m-0"><?php echo $title ?></h1>
                      </div>
-                     <hr>
-                  </div>
-                     <div class="col-12">
-                        <div class="card">
-                           <div class="card-body">
-                           Welcome <?php echo $result['Role'] ?> !
+                     <hr><br><br>
+                     <div class="col-lg-12">
+                     <div class="card">
+                        <div class="card-body">
+                           <div>
+                              <form method="post" action="success.php" enctype="multipart/form-data">
+                                    <br>
+                                    <label for="Role"><b>Role</b></label><br>
+                                    <select id="Role" name="Role" >
+                                    <?php 
+                                       foreach($roles as $role) { ?> 
+                                          <option value ="<?php echo $role['id']; ?>"><?php echo $result['Role']; ?> </option>
+                                       <?php } ?>
+                                    </select><br>
+
+                                    <label for="FirstName"><b>First Name</b></label><br>
+                                    <input type="text" id="FirstName" name="FirstName" placeholder="Firstname"  value="<?php echo $result ['FirstName'] ?>" required><br>
+                                    
+                                    <label for="LastName"><b>Last Name</b></label><br>
+                                    <input type="text" id="LastName" name="LastName" placeholder="Lastname" value="<?php echo $result ['LastName'] ?>" required><br>
+
+                                    <label for="Gender"><b>Gender</b></label><br>
+                                    <select id="Gender" name="Gender">
+                                    <?php 
+                                       foreach($genders as $gender) { ?> 
+                                          <option value ="<?php echo $gender['id']; ?>"><?php echo $result['Gender']; ?> </option>
+                                       <?php } ?>
+                                    </select><br>
+                                 
+                                    <label for="DOB"><b>Date Of Birth</b></label><br>
+                                    <input type="text" id="dob" name="DOB" placeholder="Date of Birth" value="<?php echo $result ['DOB'] ?>" required><br>
+
+                                    <label for="AddressLine1"><b>Address Line1</b></label><br>
+                                    <input type="text" id="AddressLine1" name="AddressLine1" placeholder="Address Line1" value="<?php echo $result ['AddressLine1'] ?>" required><br>
+
+                                    <label for="AddressLine2"><b>Address Line2 (optional)</b></label><br>
+                                    <input type="text" id="AddressLine2" name="AddressLine2" placeholder="Address Line2" value="<?php echo $result ['AddressLine1'] ?>"><br>
+
+                                    <label for="State"><b>State/Parish</b></label><br>
+                                    <input type="text" id="State" name="State" placeholder="State/Parish" required><br>
+
+                                    <label for="Country"><b>Country</b></label><br>
+                                    <select id="Country" name="Country"placeholder="Select Country">
+                                    <option placeholder="Select Country"><p >Select Country</p></option>
+                                    <option value="canada">Canada</option>
+                                    <option value="Jamaica">Jamaica</option>
+                                    <option value="usa">USA</option>
+                                    <option value="UK">UK</option>
+                                    </select><br>
+
+                                    <label for="Password"><b>Password</b></label><br>
+                                    <input type="Password" placeholder="Password" name="Password" required><br>
+
+                                    <label for="Email"><b>Email Address</b></label><br>
+                                    <input type="text" id="Email" name="Email" placeholder="Email" value="<?php echo $result ['Email'] ?>" readonly><br>
+
+                                    <label for="Phone"><b>Phone Number</b></label><br>
+                                    <input type="text" placeholder="Phone" name="Phone" value="<?php echo $result ['Phone'] ?>" required><br>
+
+                                          <div class="form-group">
+                                             <label for="" class="control-label">Avatar</label>
+                                             <div class="custom-file">
+                                                   <input type="file" class="custom-file-input" id="customFile" name="img" onchange="displayImg(this,$(this))" readonly>
+                                                </div>
+                                          </div><br>
+                                          <div class="form-group d-flex  align-items-center">
+                                             <img src="<?php echo isset($avatar) ? 'uploads/'.$avatar :'' ?>" alt="Avatar" id="cimg" class="img-fluid img-thumbnail" value="<?php echo $result ['Avatar_path'] ?>">
+                                          </div><br>
+
+                                          <div class="col-lg-12 text-right justify-content-center d-flex">
+                                             <button class="btn btn-primary mx-3">Save</button>
+                                             <button class="btn btn-secondary mx-3" type="button" onclick="location.href = 'index.php?page=user_list'">Cancel</button>
+                                          </div>
+                              </form>
                            </div>
-                        </div>
-                     </div>
-                     <hr>
-                     <div class="row">
-                        <div class="col-md-8">
-                           <div class="card card-outline card-success">
-                              <div class="card-header">
-                                 <b>Project Progress</b>
-                              </div>
-                              <div class="card-body p-0">
-                                 <div class="table-responsive">
-                                    <table class="table m-0 table-hover">
-                                       <colgroup>
-                                          <col width="5%">
-                                          <col width="30%">
-                                          <col width="35%">
-                                          <col width="15%">
-                                          <col width="15%">
-                                       </colgroup>
-                                       <thead>
-                                          <th>#</th>
-                                          <th>Project</th>
-                                          <th>Progress</th>
-                                          <th>Status</th>
-                                          <th></th>
-                                       </thead>
-                                    </table>
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-                     </div>
-                  </div>  
+                  </div><br><br><br><br>
                   <!-- footer -->
                   <div class="fixed-bottom container-sm;">
                      <div class="footer ">
@@ -232,12 +282,27 @@
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
       <!-- wow animation -->
       <script src="js-dashboard/animate.js"></script>
+
       <!-- nice scrollbar -->
       <script src="js-dashboard/perfect-scrollbar.min.js"></script>
       <script>
          var ps = new PerfectScrollbar('#sidebar');
       </script>
       <!-- custom js -->
+      <script>
+         function displayImg(input,_this) {
+            if (input.files && input.files[0]) {
+               var reader = new FileReader();
+               reader.onload = function (e) {
+                     $('#cimg').attr('src', e.target.result);
+               }
+
+               reader.readAsDataURL(input.files[0]);
+            }
+         }
+
+      </script>
+
       <script src="https://kit.fontawesome.com/373c402c31.js" crossorigin="anonymous"></script>
    </body>
 </html>

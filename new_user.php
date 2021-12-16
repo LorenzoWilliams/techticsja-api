@@ -278,20 +278,11 @@
       </div>
       <?php }?>
       <!-- jQuery -->
-      <script src="js-dashboard/jquery.min.js"></script>
-      <script src="js-dashboard/popper.min.js"></script>
-      <script src="js-dashboard/bootstrap.min.js"></script>
+      <script src="https://kit.fontawesome.com/373c402c31.js" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
       <!-- wow animation -->
       <script src="js-dashboard/animate.js"></script>
-      <!-- select country -->
-      <script src="js-dashboard/bootstrap-select.js"></script>
-      <!-- owl carousel -->
-      <script src="js-dashboard/owl.carousel.js"></script> 
-      <!-- chart js -->
-      <script src="js-dashboard/Chart.min.js"></script>
-      <script src="js-dashboard/Chart.bundle.min.js"></script>
-      <script src="js-dashboard/utils.js"></script>
-      <script src="js-dashboard/analyser.js"></script>
+
       <!-- nice scrollbar -->
       <script src="js-dashboard/perfect-scrollbar.min.js"></script>
       <script>
@@ -299,19 +290,18 @@
       </script>
       <!-- custom js -->
       <script>
-	function displayImg(input,_this) {
-	    if (input.files && input.files[0]) {
-	        var reader = new FileReader();
-	        reader.onload = function (e) {
-	        	$('#cimg').attr('src', e.target.result);
-	        }
+         function displayImg(input,_this) {
+            if (input.files && input.files[0]) {
+               var reader = new FileReader();
+               reader.onload = function (e) {
+                     $('#cimg').attr('src', e.target.result);
+               }
 
-	        reader.readAsDataURL(input.files[0]);
-	    }
-	}
-</script>
-      <script src="js-dashboard/chart_custom_style1.js"></script>
-      <script src="js-dashboard/custom.js"></script>
+               reader.readAsDataURL(input.files[0]);
+            }
+         }
+      </script>
+
       <script src="https://kit.fontawesome.com/373c402c31.js" crossorigin="anonymous"></script>
    </body>
 </html>

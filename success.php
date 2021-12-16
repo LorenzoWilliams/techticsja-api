@@ -16,13 +16,22 @@
 
 /*     require_once 'sendemail.php'; */
     if(isset($_POST['submit'])){
+        $user = new UsersData($conn);
+        $email = $_POST['Email'];
+
+        $result = $user->getUserByEmail($email);
+        if($result['num']>0){
+           echo "User Already Exist!";
+        }else{
+
+
         //extract values from the $_POST array
         $role = $_POST['Role'];
         $firstname = $_POST['FirstName'];
         $lastname = $_POST['LastName'];
         $gender = $_POST['Gender'];
         $dob = $_POST['DOB'];
-        $email = $_POST['Email'];
+        
         $phone = $_POST['Phone'];
         $addressLine1 = $_POST['AddressLine1'];
         $addressLine2 = $_POST['AddressLine2'];
@@ -33,13 +42,13 @@
         
         $orig_file = $_FILES["avatar"]["tmp_name"];
         $ext = pathinfo($_FILES["avatar"]["name"], PATHINFO_EXTENSION);
-        $target_dir = 'uploads/';
+        $target_dir = 'uploads/UsersAvatar';
         $destination = "$target_dir$phone.$ext";
         move_uploaded_file($orig_file,$destination);
+        $member_since = '';
 
-        
         //call funcation to insert and track if success or not
-        $user = new UsersData($conn);
+        
         $issuccess = $user->addNewUser(array(
             "Role_id" => $role, 
             "FirstName" => $firstname, 
@@ -53,23 +62,13 @@
             "Avatar_path" => $destination,
             "Member_Since" => $member_since)
         );
-/*         $role = new RolesData($conn);
-        $role = $role->getRoleById($role);
-        $gender = new GendersData($conn);
-        $gender = $gender->getGenderById($gender); */
-
-/*         if($issuccess){
-            SendEmail::Sendmail($email,'Welcome to TechticsJa','You have successfully registered');
-            include 'includes/successmessage.php';
         }
-        else{
-            include 'includes/errormessage.php';
-        } */
-
     }
+
+    if($result['num']<0) {
 ?>
 
-    <img src="<?php echo empty($result['Avatar_path']) ? "uploads/blank.png": $result['Avatar_path']?>" class="rounded" style="width: 20%; height: 20%"/>
+    <img src="<?php echo empty($destination) ? "uploads/blank.png": $destination?>" class="rounded" style="width: 20%; height: 20%"/>
      <div class="card" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title">
@@ -96,4 +95,4 @@
     <br>
     <br>
 
-    <?php require_once 'includes/footer.php';?>
+    <?php  } require_once 'includes/footer.php';?>
