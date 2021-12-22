@@ -32,15 +32,7 @@
             $_SESSION['Role_id'] = $result['Role_id'];
             $_SESSION['FirstName'] = $result['FirstName'];
             $_SESSION['id'] = $result['id'];
-            if($_SESSION['Role_id']== "1"){
-              header("Location: client-dashboard.php"."?id=".$result['id']);
-              
-            }elseif($_SESSION['Role_id']== "2"){
-              header("Location: admin-dashboard.php"."?id=".$result['id']);
-
-            }else {
-              header("Location: staff-dashboard.php"."?id=".$result['id']);
-            }
+              header("Location: dashboard.php");
         }
     }
 ?>

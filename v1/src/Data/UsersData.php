@@ -17,7 +17,7 @@ class UsersData {
     public function getAllUsers()
     { 
         $sql = "SELECT 
-                    u.id,r.Role, u.FirstName, u.LastName, u.DOB, g.Gender, u.DOB, u.Email, u.Phone, u.Address, u.Password, u.Avatar_path, u.Member_since
+                    u.id,r.Role, u.FirstName, u.LastName, u.DOB, g.Gender, u.DOB, u.Email, u.Phone, u.AddressLine1,u.AddressLine2, u.State,u.Country, u.Password, u.Avatar_path, u.Member_since
                 FROM 
                     Users u 
                 JOIN 
@@ -38,7 +38,7 @@ class UsersData {
     { 
         try{
         $sql = "SELECT 
-                    u.id,r.Role, u.FirstName, u.LastName, u.DOB, g.Gender, u.DOB, u.Email, u.Phone, u.Address, u.Password, u.Avatar_path, u.Member_since
+                    u.id,r.Role, u.FirstName, u.LastName, u.DOB, g.Gender, u.DOB, u.Email, u.Phone, u.AddressLine1,u.AddressLine2, u.State,u.Country, u.Password, u.Avatar_path, u.Member_since
                 FROM 
                     Users u 
                 JOIN 
@@ -57,7 +57,7 @@ class UsersData {
     public function getUserByID($id)
     {
         $sql = "SELECT 
-                    u.id,r.Role, u.FirstName, u.LastName, u.DOB, g.Gender, u.DOB, u.Email, u.Phone, u.Address, u.Password, u.Avatar_path, u.Member_since
+                    u.id,r.Role, u.FirstName, u.LastName, u.DOB, g.Gender, u.DOB, u.Email, u.Phone, u.AddressLine1,u.AddressLine2, u.State,u.Country, u.Password, u.Avatar_path, u.Member_since
                 FROM 
                     Users u 
                 JOIN 
@@ -90,18 +90,21 @@ class UsersData {
             $DOB = $UseraddData['DOB'];
             $email = $UseraddData['Email'];
             $phone =$UseraddData['Phone'];
-            $address = $UseraddData['Address'];
+            $addressline1 = $UseraddData['AddressLine1'];
+            $addressline2 = $UseraddData['AddressLine2'];
+            $state = $UseraddData['State'];
+            $country = $UseraddData['Country'];
             $password = md5($UseraddData['Password']);
             $avatar_path = $UseraddData['Avatar_path'];
             $member_since = date('Y-m-d');
             
             $sql = "INSERT INTO 
-                        Users(Role_id,FirstName,LastName,Gender_id,DOB,Email,Phone,Address,Password,Avatar_Path,Member_since)
+                        Users(Role_id,FirstName,LastName,Gender_id,DOB,Email,Phone,AddressLine1,AddressLine2,State,Country,Password,Avatar_Path,Member_since)
                     VALUES
-                        (?,?,?,?,?,?,?,?,?,?,?)";
+                        (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                 
             $stmt = $this->db->prepare($sql);
-            $result = $stmt->execute([$role, $firstname, $lastname, $gender, $DOB, $email, $phone, $address, $password, $avatar_path,$member_since]);
+            $result = $stmt->execute([$role, $firstname, $lastname, $gender, $DOB, $email, $phone, $addressline1,$addressline2,$state,$country, $password, $avatar_path,$member_since]);
             if($result){
                 return true;
             }else{
@@ -113,6 +116,7 @@ class UsersData {
 
     public function updateUserByID($UserupdateData)
     {
+        $id = $UserupdateData['id']; 
         $role = $UserupdateData['Role_id'];
         $firstname = $UserupdateData['FirstName'];
         $lastname = $UserupdateData['LastName'];
@@ -120,11 +124,14 @@ class UsersData {
         $DOB = $UserupdateData['DOB'];
         $email = $UserupdateData['Email'];
         $phone = $UserupdateData['Phone'];
-        $address = $UserupdateData['Address'];
+        $addressline1 = $UserupdateData['AddressLine1'];
+        $addressline2 = $UserupdateData['AddressLine2'];
+        $state = $UserupdateData['State'];
+        $country = $UserupdateData['Country'];
         $password = md5($UserupdateData['Password']);
-        $avatar = $UserupdateData['Avatar_path'];
+        $avatar_path = $UserupdateData['Avatar_path'];
         $member_since = $UserupdateData['Member_since'];
-        $id = $UserupdateData['id']; 
+
 
         $sql = "UPDATE Users u
                 SET 
@@ -135,7 +142,10 @@ class UsersData {
                     u.DOB = ?,
                     u.Email = ?,
                     u.Phone = ?,
-                    u.Address = ?,
+                    u.AddressLine1 = ?,
+                    u.AddressLine2 = ?,
+                    u.State = ?,
+                    u.Country = ?,
                     u.Password = ?,
                     u.Avatar_path = ?,
                     u.Member_since = ?
@@ -145,7 +155,7 @@ class UsersData {
 
         $stmt = $this->db->prepare($sql);
         
-        $result = $stmt->execute([$role,$firstname, $lastname, $gender, $DOB, $email, $phone, $address, $password,$avatar, $member_since, $id]);
+        $result = $stmt->execute([$id,$role, $firstname, $lastname, $gender, $DOB, $email, $phone, $addressline1,$addressline2,$state,$country, $password, $avatar_path,$member_since]);
         if($result){
             // exit('success');
             return true;
@@ -180,7 +190,7 @@ class UsersData {
         
 
         $sql = "SELECT 
-                    u.id,u.Role_id, u.FirstName, u.LastName, u.DOB, u.Gender_id, u.DOB, u.Email, u.Phone, u.Address, u.Password, u.Avatar_path, u.Member_since
+                    u.id,u.Role_id, u.FirstName, u.LastName, u.DOB, u.Gender_id, u.DOB, u.Email, u.Phone, u.AddressLine1,u.AddressLine2, u.State,u.Country, u.Password, u.Avatar_path, u.Member_since
                 FROM 
                     Users u 
                 WHERE
@@ -199,7 +209,7 @@ class UsersData {
     public function getUserID($id)
     {
         $sql = "SELECT 
-                    u.id, u.Role_id, u.FirstName, u.LastName, u.DOB, u.Gender_id, u.DOB, u.Email, u.Phone, u.Address, u.Password, u.Avatar_path, u.Member_since
+                    u.id, u.Role_id, u.FirstName, u.LastName, u.DOB, u.Gender_id, u.DOB, u.Email, u.Phone, u.AddressLine1,u.AddressLine2, u.State,u.Country, u.Password, u.Avatar_path, u.Member_since
                 FROM 
                     Users u 
                 WHERE

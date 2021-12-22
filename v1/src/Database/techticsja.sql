@@ -34,7 +34,10 @@ create table Users(
 	DOB date NOT NULL,
     Email nvarchar(50) NOT NULL,
     Phone nvarchar(15) NOT NULL,
-	Address nvarchar(300) NOT NULL,
+	AddressLine1 nvarchar(80) NOT NULL,
+	AddressLine2 nvarchar(80) ,
+	State nvarchar(50) NOT NULL,
+	Country nvarchar(50) NOT NULL,
     Password nvarchar(200) NOT NULL,
     Avatar_path nvarchar(200),
     Member_since date NOT NULL
@@ -121,7 +124,7 @@ CREATE TABLE User_productivity (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 INSERT INTO System_settings (id, Name, Email, Phone, Address, Logo) VALUES
-(1, 'TechticsJA', 'techtics.ja@gmail.com', '8763716518', 'Lot 76 Caliway Southboro St. Catherine', 'uploads/techtics.pgn');
+(1, 'TechticsJA', 'techtics.ja@gmail.com', '8763716518', 'Lot 76 Caliway Southboro, St. Catherine, Jamaica', 'uploads/techtics.pgn');
 
 INSERT INTO Roles(Role)
 VALUES ('Client'),('Aministrator'),('Software Developer'),('Web Administrator'),
@@ -136,8 +139,8 @@ VALUES ('Paid'),('Not Paid');
 INSERT INTO Status(Status)
 VALUES ('Pending'),('Started'),('In-Progress'),('On-Hold'),('Over Due'),('Done');
          
-INSERT INTO Users(Role_id,FirstName,LastName,Gender_id,DOB,Email,Phone,Address,Password,Avatar_path,Member_since)
-VALUES ('1','Lorencio','Williams','1','2000-05-29','cio_williams@gmail.com','8764219284','Red Hills Road St. Andrew','12345','','2021-12-03');
+INSERT INTO Users(Role_id,FirstName,LastName,Gender_id,DOB,Email,Phone,AddressLine1,AddressLine2,State,Country,Password,Avatar_path,Member_since)
+VALUES ('1','Lorencio','Williams','1','2000-05-29','cio_williams@gmail.com','8764219284','Sunrise','Red Hills Road', 'St. Andrew','Jamaica','12345','','2021-12-03');
 
 INSERT INTO Products(Product)
 VALUES ('Brochure_Basic'),

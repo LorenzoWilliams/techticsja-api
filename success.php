@@ -1,17 +1,15 @@
 <?php 
 
     use techticsja\Database\Connection;
-    use techticsja\Data\GendersData;
-    use techticsja\Data\RolesData;
     use techticsja\Data\UsersData;
 
-
     $title = 'Success';
+
     require_once 'includes/header.php';
     require_once 'v1/src/Database/Connection.php';
-    require_once 'v1/src/Data/UsersData.php';
-    require_once 'v1/src/Data/RolesData.php';
     require_once 'v1/src/Data/GendersData.php';
+    require_once 'v1/src/Data/RolesData.php';
+    require_once 'v1/src/Data/UsersData.php';
     $conn = new Connection;
 
 /*     require_once 'sendemail.php'; */
@@ -31,14 +29,12 @@
         $lastname = $_POST['LastName'];
         $gender = $_POST['Gender'];
         $dob = $_POST['DOB'];
-        
         $phone = $_POST['Phone'];
-        $addressLine1 = $_POST['AddressLine1'];
-        $addressLine2 = $_POST['AddressLine2'];
+        $addressline1 = $_POST['AddressLine1'];
+        $addressline2 = $_POST['AddressLine2'];
         $state = $_POST['State'];
         $country = $_POST['Country'];
-        $address="$addressLine1 $addressLine2, $state, $country";
-        $password = md5($_POST['Password']);
+        $password = $_POST['Password'];
         
         $orig_file = $_FILES["avatar"]["tmp_name"];
         $ext = pathinfo($_FILES["avatar"]["name"], PATHINFO_EXTENSION);
@@ -57,18 +53,21 @@
             "DOB" => $dob, 
             "Email" => $email, 
             "Phone" => $phone, 
-            "Address" => $address, 
+            "AddressLine1" => $addressline1,
+            "AddressLine2" => $addressline2, 
+            "State" => $state, 
+            "Country" => $country,  
             "Password" => $password,
             "Avatar_path" => $destination,
             "Member_Since" => $member_since)
         );
         }
-    }
-
-    if($result['num']<0) {
 ?>
+<br>
+<br>
+<br>
 
-    <img src="<?php echo empty($destination) ? "uploads/blank.png": $destination?>" class="rounded" style="width: 20%; height: 20%"/>
+    <img src="<?php echo $destination;?>" class="rounded" style="width: 20%; height: 20%"/>
      <div class="card" style="width: 18rem;">
         <div class="card-body">
             <h5 class="card-title">
@@ -95,4 +94,4 @@
     <br>
     <br>
 
-    <?php  } require_once 'includes/footer.php';?>
+    <?php } require_once 'includes/footer.php';?>

@@ -5,7 +5,9 @@
     $title = 'Client Dashboard'; 
     
     require_once 'v1/src/Database/Connection.php';
-    require_once 'v1/src/Data/UsersData.php'; 
+    require_once 'v1/src/Data/UsersData.php';
+    require_once 'includes/sessions.php';
+    require_once 'includes/auth_check.php'; 
 
     $conn = new Connection;
     $userdata = new UsersData($conn);
@@ -70,7 +72,7 @@
                   <div class="sidebar_user_info">
                      <div class="icon_setting"></div>
                      <div class="user_profle_side">
-                        <div class="user_img"><img class="img-responsive" src="<?php echo empty($result['Avatar_path'])? "uploads/blank.png":$result['Avatar_path'];?>"/></div>
+                        <div class="user_img"><img class="img-responsive" style="width: 74px; height:74px" src="<?php echo empty($result['Avatar_path'])? "uploads/blank.png":$result['Avatar_path'];?>"/></div>
                         <div class="user_info">
                            <h6><?php 
                                     echo $result['FirstName']." ".$result['LastName']?></h6>
@@ -83,34 +85,35 @@
                   <h4>Menu</h4>
                   <ul class="list-unstyled components">
                      <li class="active">
-                     <a href="client-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fa fa-clock-o orange_color"></i> <span>Dashboard</span></a>
+                     <a href="client-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fa fa-tachometer-alt"></i> <span>Dashboard</span></a>
                      </li>
                      <li>
-                        <a href="#element" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-object-group blue2_color"></i> <span>Apps</span></a>
-                        <ul class="collapse list-unstyled" id="element">
-                           <li><a href="Profile-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fa fa-user red_color"></i> <span>Profile</span></a></li>
-                           <li><a href="project-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fa fa-files-o white_color"></i> <span>Project</span></a></li>
-                           <li><a href="email-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fa fa-envelope-o white_color"></i> <span>Email</span></a></li>
-                           <li><a href="media_gallery.php?id=<?php echo $result['id'] ?>"><i class="fa fa-picture-o yellow_color"></i> <span>Media Gallery</span></a></li>
-                           <li><a href="calendar-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fa fa-calendar green_color"></i> <span>Calendar</span></a></li>
-                           <li><a href="map.php?id=<?php echo $result['id'] ?>"><i class="fa fa-map purple_color2"></i> <span>Map</span></a></li>
+                        <a href="#project" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-layer-group"></i> <span>Project</span></a>
+                        <ul class="collapse list-unstyled" id="project">
+                        <li><a href="invoice.php?id=<?php echo $result['id'] ?>"> <span>> Add New</span></a></li>
+                           <li><a href="payment_history.php?id=<?php echo $result['id'] ?>"> <span>> List</span></a></li>
                         </ul>
-                     </li>         
+                     </li>  
+                     <li><a href="project-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fas fa-tasks white_color"></i> <span>Task</span></a></li>
 
-                     
-                     <li><a href="price-dashboard.php?id=<?php echo $result['id'] ?>"><i class="fa fa-briefcase blue1_color"></i> <span>Pricing Tables</span></a></li>
+                     <li><a href="report-dashboard.php?id=<?php echo $result['id'] ?>"><i class="far fa-list-alt"></i> <span>Report</span></a></li>
                      <li>
-                        <a href="#element" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-usd green_color"></i> <span>Payment</span></a>
-                        <ul class="collapse list-unstyled" id="element">
-                           <li><a href="invoice.php?id=<?php echo $result['id'] ?>"> <span>Invoice</span></a></li>
-                           <li><a href="payment_history.php?id=<?php echo $result['id'] ?>"> <span>History</span></a></li>
+                        <a href="#payment" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-file-invoice-dollar"></i> <span>Payment</span></a>
+                        <ul class="collapse list-unstyled" id="payment">
+                           <li><a href="invoice.php?id=<?php echo $result['id'] ?>"> <span>> Invoice</span></a></li>
+                           <li><a href="payment_history.php?id=<?php echo $result['id'] ?>"> <span>> History</span></a></li>
                         </ul>
-                     </li>              
+                     </li>                       
                      <li>
-                        <a href="contact.php?id=<?php echo $result['id'] ?>">
-                        <i class="fa fa-paper-plane red_color"></i> <span>Contact</span></a>
-                     </li>
-                     <li><a href="settings.php?id=<?php echo $result['id'] ?>"><i class="fa fa-cog yellow_color"></i> <span>Settings</span></a></li>
+                        <a href="#users" data-bs-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="fa fa-users"></i> <span>User</span></a>
+                        <ul class="collapse list-unstyled" id="users">
+                        <li><a href="new_user.php?id=<?php echo $result['id'] ?>"> <span>> Add New</span></a></li>
+                           <li><a href="user_list.php?id=<?php echo $result['id'] ?>"> <span>> List</span></a></li>
+                        </ul>
+                     </li> 
+ 
+                     <li><a href="settings.php?id=<?php echo $result['id'] ?>"><i class="fa fa-cog"></i> <span>Settings</span></a></li>
+           
                   </ul>
                </div>
             </nav>
@@ -123,18 +126,18 @@
                      <div class="full">
                         <button type="button" id="sidebarCollapse" class="sidebar_toggle"><i class="fa fa-bars"></i></button>
                         <div class="logo_section">
-                           <a href="index.html"><img class="img-responsive" src="uploads/techticsja.png" alt="#" /></a>
+                           <a href="#"><img class="img-responsive" src="uploads/techticsja.png" alt="#" /></a>
                         </div>
                         <div class="right_topbar">
                            <div class="icon_info">
                               <ul>
-                                 <li><a href="#"><i class="fa fa-bell-o"></i><span class="badge">2</span></a></li>
-                                 <li><a href="#"><i class="fa fa-question-circle"></i></a></li>
-                                 <li><a href="#"><i class="fa fa-envelope-o"></i><span class="badge">3</span></a></li>
+                                 <li><a href="#"><i class="fas fa-bell"></i><span class="badge">2</span></a></li>
+                                 <li><a href="#"><i class="fas fa-question-circle"></i></a></li>
+                                 <li><a href="#"><i class="fas fa-envelope"></i><span class="badge">3</span></a></li>
                               </ul>
                               <ul class="user_profile_dd">
                                  <li>
-                                       <a class="dropdown-toggle" data-bs-toggle="dropdown"><img class="img-responsive rounded-circle" src="<?php echo empty($result['Avatar_path'])? "uploads/blank.png":$result['Avatar_path'];?>"/><span class="name_user"><?php echo $result['FirstName']." ".$result['LastName'];?></span></a>
+                                       <a class="dropdown-toggle" data-bs-toggle="dropdown"><img class="img-responsive rounded-circle" style="width: 35px; height:35px" src="<?php echo empty($result['Avatar_path'])? "uploads/blank.png":$result['Avatar_path'];?>"/><span class="name_user"><?php echo $result['FirstName']." ".$result['LastName'];?></span></a>
                                        <div class="dropdown-menu">
                                           <a class="dropdown-item" href="profile.php">My Profile</a>
                                           <a class="dropdown-item" href="settings.php">Settings</a>
@@ -148,6 +151,7 @@
                      </div>
                   </nav>
                </div>
+               <br>
                <!-- end topbar -->
                <!-- dashboard inner -->
                <div class="midde_cont">

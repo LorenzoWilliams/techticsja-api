@@ -792,7 +792,7 @@ a:focus {
     position: fixed;
     right: 0;
     bottom: 0;
-    left: 280px;
+    left: 270px;
     z-index: 1030;
   }
   
@@ -1953,12 +1953,12 @@ button.main_bt {
 -------------------------------------------------------------------*/
 
 .footer {
-    min-height: 65px;
+    min-height: 50px;
     background: #fff;
     margin-top: 30px;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
     border-radius: 5px;
-    width: 100%;
+    width: 90%;
 }
 
 .footer p {

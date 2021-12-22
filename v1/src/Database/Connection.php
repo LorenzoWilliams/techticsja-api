@@ -26,6 +26,15 @@ class Connection {
         $this->password = '';
         $this->host = 'localhost';
         $this->db ='techticsja_db';
+/*         
+           //remote connection
+        $this->username = 'xESi6TsCzz';
+        $this->password = 'YPqlDMmFkm';
+        $this->host = 'remotemysql.com';
+        $this->db ='xESi6TsCzz';
+ */
+
+
     }
 
     public function connect()
@@ -33,7 +42,7 @@ class Connection {
         $this->connectParams();
 
         try {
-            $conn = new \PDO('mysql:host='.$this->host.';dbname='.$this->db.';charset=utf8',$this->username,$this->password);
+            $conn = new \PDO('mysql:host='.$this->host.';dbname='.$this->db.';charset=utf8mb4',$this->username,$this->password);
             return $conn;
             
         }
@@ -61,7 +70,10 @@ $user->addNewUser(array(
     "DOB" => '1991-02-12', 
     "Email" => 'Lorenzo_1Williams@hotmail.com', 
     "Phone" => '8763716518', 
-    "Address" => 'Portmore, St. Catherine', 
+    "AddressLine1" => 'Southboro',
+    "AddressLine2" => 'Portmore', 
+    "State" => 'St. Catherine', 
+    "Country" => 'Jamaica',  
     "Password" => '12345',
     "Avatar_path" => 'uploads/ceo.jpg',
     "Member_since" => '')
