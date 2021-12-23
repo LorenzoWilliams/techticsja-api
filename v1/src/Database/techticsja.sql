@@ -20,7 +20,7 @@ create table Pay_Status(
 
 create table Status(
 	id int primary key auto_increment,
-	Status nvarchar(10) NOT NULL
+	Status nvarchar(20) NOT NULL
 )ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ;
 
 create table Users(
@@ -35,7 +35,7 @@ create table Users(
     Email nvarchar(50) NOT NULL,
     Phone nvarchar(15) NOT NULL,
 	AddressLine1 nvarchar(80) NOT NULL,
-	AddressLine2 nvarchar(80) ,
+	AddressLine2 nvarchar(80),
 	State nvarchar(50) NOT NULL,
 	Country nvarchar(50) NOT NULL,
     Password nvarchar(200) NOT NULL,

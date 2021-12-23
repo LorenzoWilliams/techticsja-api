@@ -154,8 +154,9 @@ class UsersData {
         
 
         $stmt = $this->db->prepare($sql);
-        
+
         $result = $stmt->execute([$id,$role, $firstname, $lastname, $gender, $DOB, $email, $phone, $addressline1,$addressline2,$state,$country, $password, $avatar_path,$member_since]);
+
         if($result){
             // exit('success');
             return true;

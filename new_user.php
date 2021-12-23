@@ -45,7 +45,7 @@
                      </select><br>
                   
                      <label for="DOB"><b>Date Of Birth</b></label><br>
-                     <input type="date" id="dob" class="form-control" name="DOB" placeholder="Date of Birth" required><br>
+                     <input type="text" id="dob" name="DOB" placeholder="Date of Birth" required><br>
 
                      <label for="AddressLine1"><b>Address Line1</b></label><br>
                      <input type="text" id="AddressLine1" name="AddressLine1" placeholder="Address Line1" required><br>
@@ -88,8 +88,9 @@
                               <button class="btn btn-primary mx-3">Save</button>
                               <button class="btn btn-secondary mx-3" type="button" onclick="location.href = 'index.php?page=user_list'">Cancel</button>
                            </div>
-               </form>
-            </div>
-   </div><br><br><br><br>
-
+                           </form>
+                           </div>
+                  </div><br><br>
+                  </div>
+               </div>
  <?php include 'includes/footer-dashboard.php' ?>

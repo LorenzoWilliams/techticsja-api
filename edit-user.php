@@ -4,14 +4,13 @@
     require_once 'includes/header-dashboard.php';
     require_once 'includes/auth_check.php';
 
-
-
     if(!isset($_GET['id'])){
       include 'includes/errormessage.php';
 
    }else{
       $id=$_GET['id'];
       $result = $userdata->getUserByID($id);
+      
 ?>
                <!-- dashboard inner -->
                <div class="midde_cont">
@@ -25,8 +24,10 @@
                      <div class="card">
                         <div class="card-body">
                            <div>
-                              <form method="post" action="editpost.php" enctype="multipart/form-data">
-                                 <br>
+                              <form method="post" action="edituserpost.php" enctype="multipart/form-data">
+
+                                 <input type="hidden" name="id" value="<?php echo $result['id'] ?>"/><br>
+
                                  <label for="Role"><b>Role</b></label><br>
                                  <select id="Role" name="Role" placeholder="Select Gender" >
                                  <option placeholder="Select Role"><p >Select Role</p></option>
@@ -52,8 +53,8 @@
                                     <?php } ?>
                                  </select><br>
                               
-                                 <label for="dob" >Date of Birth</label>
-                                 <input type="date" class="form-control" id="dob" name="DOB" value="<?php echo  $result ['DOB'] ?>"><br>
+                                 <label for="dob" >Date of Birth</label><br>
+                                 <input type="text" id="dob" name="DOB" placeholder="Date of Birth" value="<?php echo  $result ['DOB'] ?>" required><br>
 
 
                                  <label for="AddressLine1"><b>Address Line1</b></label><br>
@@ -104,4 +105,5 @@
                            </div>
                   </div><br><br><br><br>
                   <?php }?>
+
 <?php include 'includes/footer-dashboard.php' ?>

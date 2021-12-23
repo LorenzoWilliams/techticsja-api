@@ -65,7 +65,7 @@
                   </div>
                   <div>
                      <a href="user_list.php" class="btn btn-info">Back to List</a>
-                     <a href="edit_user.php?id=<?php echo $result['id'] ?>" class="btn btn-warning">Edit</a>
+                     <a href="edit-user.php?id=<?php echo $r['id'] ?>" class="btn btn-warning">Edit</a>
                      <a onclick="return confirm ('Are you sure you want to delete this record?');" href="delete_user.php?id=<?php echo $r['id'] ?>" class="btn btn-danger">Delete</a>  
                   </div>
                   <br><br>

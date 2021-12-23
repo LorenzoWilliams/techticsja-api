@@ -22,17 +22,17 @@ class Connection {
 
     public function connectParams()
     {
-        $this->username = 'root';
+/*         $this->username = 'root';
         $this->password = '';
         $this->host = 'localhost';
-        $this->db ='techticsja_db';
-/*         
+        $this->db ='techticsja_db'; */
+        
            //remote connection
-        $this->username = 'xESi6TsCzz';
-        $this->password = 'YPqlDMmFkm';
-        $this->host = 'remotemysql.com';
-        $this->db ='xESi6TsCzz';
- */
+        $this->username = 'techtsja_admin';
+        $this->password = 'admin123';
+        $this->host = '50.87.145.44';
+        $this->db ='techtsja_techticsja_db';
+
 
 
     }

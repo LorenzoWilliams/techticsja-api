@@ -52,12 +52,21 @@
       </script>
       <script src="https://kit.fontawesome.com/373c402c31.js" crossorigin="anonymous"></script>
              <!-- jQuery -->
-             <script type="text/javascript" 
-          src="https://code.jquery.com/jquery-3.5.1.js">
-      </script>
+      <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+      <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
       <!-- DataTables JS -->
       <script src=
       "https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js">
+      </script>
+      <script>
+      $( function() {
+         $( "#dob" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange:"-100:+0",
+            dateFormat: "yy-mm-dd"
+         });
+      } );
       </script>
       <script>
       // Initialize the DataTable

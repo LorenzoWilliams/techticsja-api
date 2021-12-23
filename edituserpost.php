@@ -6,6 +6,7 @@
     //get values from post operation
     if(isset($_POST['submit'])){
         //extract values from the $_POST array
+        $id = $_POST['id'];
         $role = $_POST['Role'];
         $firstname = $_POST['FirstName'];
         $lastname = $_POST['LastName'];
@@ -21,10 +22,9 @@
         $avatar_path = $_POST['Avatar_path'];
         $member_since = $_POST['Member_since'];
 
-        var_dump($_POST);
-
         //call Crud function
         $result = $user->updateUserByID(array(
+            "id" => $id,
             "Role_id" => $role, 
             "FirstName" => $firstname, 
             "LastName" =>$lastname, 
@@ -41,8 +41,7 @@
             "Member_since" => $member_since)
 
         );
-var_dump($result);
-exit;
+
         //Redirect to list
         if($result){
             header("Location: user_list.php");
