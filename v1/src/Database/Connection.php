@@ -28,10 +28,10 @@ class Connection {
         $this->db ='techticsja_db'; */
         
            //remote connection
-        $this->username = 'techtsja_admin';
-        $this->password = 'admin123';
-        $this->host = '50.87.145.44';
-        $this->db ='techtsja_techticsja_db';
+        $this->username = 'XbyjsSFGMJ';
+        $this->password = '7uucFrZBWd';
+        $this->host = 'remotemysql.com';
+        $this->db ='XbyjsSFGMJ';
 
 
 
